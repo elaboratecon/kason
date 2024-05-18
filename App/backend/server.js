@@ -27,5 +27,5 @@ app.use("/api/people", require("./routes/peopleRoutes"));
 
 app.listen(PORT, () => {
   // Change this text to whatever FLIP server you're on
-  console.log(`Server running:  http://flip3.engr.oregonstate.edu:${PORT}...`);
+  console.log(`Server running:  http://classmysql.engr.oregonstate.edu:${PORT}...`);
 });
