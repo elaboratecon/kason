@@ -1,10 +1,77 @@
 html {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 html li {
-  list-style-type: none;
+    list-style-type: none;
+}
+
+nav {
+    margin-bottom: 1rem;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-bottom: .5rem;
+}
+
+table {
+    width: 100%;
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    border-spacing: 0;
+}
+
+th,
+td {
+    border-bottom: 1px solid #999;
+    border-left: 1px solid #999;
+    padding: .25rem;
+    text-align: left;
+}
+
+fieldset {
+    border: 2px dashed #DDD;
+    margin-bottom: .5rem;
+    padding: 0 1rem 1rem 1rem;
+    border-radius: 10px;
+}
+
+legend {
+    color: #333;
+    font-size: 1.2rem;
+}
+
+label {
+    display: block;
+    margin-top: .5rem;
+}
+
+label.required:after {
+    content: "*";
+    color: #dc3545;
+}
+
+input {
+    min-width: 400px;
+}
+
+input[type=button],
+input[type=submit] {
+    min-width: 0;
+}
+
+.text-center {
+    text-align: center;
 }
