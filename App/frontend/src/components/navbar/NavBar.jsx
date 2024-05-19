@@ -3,7 +3,7 @@ import { MdLocalConvenienceStore } from "react-icons/md";
 
 const Navbar = () => {
     return (
-        <header>
+        <>
             <header>
                 <h1>KASON: Get a Job!™</h1>
             </header>
@@ -15,7 +15,7 @@ const Navbar = () => {
                 <Link to="/employment-histories">EmploymentHistories</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
                 <Link to="/candidates-for-postings">CandidatesForPostings</Link>
             </nav>
-        </header>
+        </>
     );
 };
 
