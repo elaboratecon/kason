@@ -18,6 +18,8 @@ app.use('/api/people', require('./routes/peopleRoutes'))
 app.use('/api/employers', require('./routes/employersRoutes'))
 app.use('/api/candidates', require('./routes/candidatesRoutes'))
 app.use('/api/postings', require('./routes/postingsRoutes'))
+app.use('/api/employment-histories', require('./routes/employmentHistoriesRoutes'))
+app.use('/api/candidates-for-postings', require('./routes/candidatesForPostingsRoutes'))
 
 // Add your Connect DB Activitiy Code Below:
 // ...

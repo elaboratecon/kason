@@ -9,7 +9,8 @@ const lodash = require('lodash')
 const getPostings = async (req, res) => {
     try {
         // Select all rows from the "Postings" table
-        const query = 'SELECT * FROM Postings'
+        const query = 'SELECT posting_id, position, description, Employers.name AS employer_name, Employers.location AS employer_location FROM Postings INNER JOIN Employers ON Employers.employer_id = Postings.employer_id;'
+
         // Execute the query using the "db" object from the configuration file
         const [rows] = await db.query(query)
         // Send back the rows to the client
