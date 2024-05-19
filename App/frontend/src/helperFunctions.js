@@ -7,3 +7,11 @@ export const readFromAPI = async (apiURL) => {
         console.log(e)
     }
 }
+
+export const formatDate = (unformattedDate) => (
+    new Date(unformattedDate).toLocaleDateString('en-us', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+    })
+)

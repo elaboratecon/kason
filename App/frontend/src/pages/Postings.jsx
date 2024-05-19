@@ -53,7 +53,7 @@ const TableRow = ({ data }) => {
         posting_id: postingID,
         position,
         description,
-        employer_id: employerID,
+        employer_name: employerName,
     } = data
 
     return (
@@ -66,7 +66,7 @@ const TableRow = ({ data }) => {
             </td>
             <td className="text-center">{postingID}</td>
             <td>{position}</td>
-            <td>{employerID} (needs to be Employer Name)</td>
+            <td>{employerName}</td>
             <td>{description}</td>
         </tr>
     )

@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage'
 import PeoplePage from './pages/PeoplePage'
 import Navbar from './components/navbar/NavBar'
 
-import { Employers, Candidates, Postings } from './pages/'
+import { Employers, Candidates, Postings, EmploymentHistories, CandidatesForPostings } from './pages/'
 
 // Endpoints
 const baseAPI = import.meta.env.VITE_API_URL
@@ -34,6 +34,14 @@ function App() {
                     <Route
                         path="/postings"
                         element={<Postings apiURL={`${baseAPI}postings`} />}
+                    />
+                    <Route
+                        path="/employment-histories"
+                        element={<EmploymentHistories apiURL={`${baseAPI}employment-histories`} />}
+                    />
+                    <Route
+                        path="/candidates-for-postings"
+                        element={<CandidatesForPostings apiURL={`${baseAPI}candidates-for-postings`} />}
                     />
                 </Routes>
             </main>
