@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 import {
     Collapse,
@@ -22,7 +21,7 @@ const Navigation = (args) => {
                 <h1>KASON: Get a Job!™</h1>
             </header>
             <div>
-                <Navbar {...args} style={{ padding: '0' }}>
+                <Navbar {...args} style={{ padding: '.25rem' }}>
                     <NavbarBrand></NavbarBrand>
                     <NavbarToggler onClick={toggle} />
                     <Collapse isOpen={isOpen} navbar>
