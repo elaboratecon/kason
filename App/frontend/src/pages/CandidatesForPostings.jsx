@@ -24,14 +24,14 @@ export const CandidatesForPostings = ({ apiURL }) => {
 
             <section id="browseCandidatesForPostings">
             <h2>Browse CandidatesForPostings</h2>
-            <table>
-                <thead>
+            <table className="table table-light table-bordered table-hover">
+                <thead className="table-secondary">
                     <tr>
                         <th className="text-center">
                             <a href="#" onClick={() => console.log('addNewCandidateForPosting')}>New</a>
                         </th>
                         <th></th>
-                        <th>candidate_for_posting_id</th>
+                        <th className="text-center">candidate_for_posting_id</th>
                         <th>posting_position</th>
                         <th>candidate_full_name</th>
                     </tr>
@@ -56,10 +56,10 @@ const TableRow = ({ data }) => {
 
     return (
         <tr>
-            <td>
+            <td className="text-center">
                 <a href="#" className="text-center" onClick={() => console.log('editCandidateForPosting')}>Edit</a>
             </td>
-            <td>
+            <td className="text-center">
                 <a href="#" className="text-center" onClick={() => console.log('deleteCandidateForPosting')}>Delete</a>
             </td>
             <td className="text-center">{candidateForPostingID}</td>

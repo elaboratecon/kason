@@ -24,14 +24,14 @@ export const Postings = ({ apiURL }) => {
 
             <section id="browsePostings">
                 <h2>Browse Postings</h2>
-                <table>
-                    <thead>
+                <table className="table table-light table-bordered table-hover">
+                    <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
                                 <a href="#" onClick={() => console.log('addNewPosting')}>New</a>
                             </th>
                             <th></th>
-                            <th>posting_id</th>
+                            <th className="text-center">posting_id</th>
                             <th>position</th>
                             <th>employer_name</th>
                             <th>description</th>

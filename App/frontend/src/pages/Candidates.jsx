@@ -24,13 +24,13 @@ export const Candidates = ({ apiURL }) => {
 
             <section id="browseCandidates">
                 <h2>Browse Candidates</h2>
-                <table>
-                    <thead>
+                <table className="table table-light table-bordered table-hover">
+                    <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
                                 <a href="#" onClick={() => console.log('addNewCandidate')}>New</a>
                             </th>
-                            <th>candidate_id</th>
+                            <th className="text-center">candidate_id</th>
                             <th>first_name</th>
                             <th>last_name</th>
                             <th>profession</th>
