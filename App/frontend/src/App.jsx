@@ -2,7 +2,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import PeoplePage from './pages/PeoplePage'
-import Navbar from './components/navbar/NavBar'
+import Navigation from './components/navbar/Navigation'
 
 import { Employers, Candidates, Postings, EmploymentHistories, CandidatesForPostings } from './pages/'
 
@@ -12,7 +12,13 @@ const baseAPI = import.meta.env.VITE_API_URL
 function App() {
     return (
         <>
-            <Navbar />
+            <Navigation
+                light
+                dark={false}
+                full="true"
+                expand="md"
+                container="fluid"
+            />
             <main>
                 <Routes>
                     <Route

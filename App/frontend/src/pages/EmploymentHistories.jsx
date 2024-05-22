@@ -24,14 +24,14 @@ export const EmploymentHistories = ({ apiURL }) => {
 
             <section id="browseEmploymentHistories">
                 <h2>Browse EmploymentHistories</h2>
-                <table>
-                    <thead>
+                <table className="table table-light table-bordered table-hover">
+                    <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
                                 <a href="#" onClick={() => console.log('addNewEmploymentHistory')}>New</a>
                             </th>
                             <th></th>
-                            <th>employment_history_id</th>
+                            <th className="text-center">employment_history_id</th>
                             <th>candidate_full_name</th>
                             <th>position</th>
                             <th>employer_name_from_database</th>

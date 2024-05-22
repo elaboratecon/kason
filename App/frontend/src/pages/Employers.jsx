@@ -24,8 +24,8 @@ export const Employers = ({ apiURL }) => {
 
             <section id="browseEmployers">
                 <h2>Browse Employers</h2>
-                <table>
-                    <thead>
+                <table className="table table-light table-bordered table-hover">
+                    <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
                                 <a href="#" onClick={() => console.log('addNewEmployer')}>New</a>

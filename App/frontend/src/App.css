@@ -1,7 +1,4 @@
 html {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
 }
 
@@ -9,12 +6,31 @@ html li {
     list-style-type: none;
 }
 
+header {
+    margin: 0 auto;
+    height: 80px;
+    background: #333;
+    color: #eee;
+    font-size: 1.75rem;
+}
+
+header h1 {
+    line-height: 80px;
+}
+
 nav {
+    background: #ccc;
     margin-bottom: 1rem;
 }
 
+main {
+    text-align: center;
+    padding: 1rem 1vw;
+}
+
 section {
-    margin-bottom: 2rem;
+    margin: 1rem auto;
+    max-width: 1400px;
 }
 
 h1 {
@@ -23,21 +39,20 @@ h1 {
 
 h2 {
     margin-top: 0px;
-    margin-bottom: .5rem;
+    margin-bottom: 1.5rem;
 }
 
 table {
+    margin-top: 1rem;
     width: 100%;
-    border-top: 1px solid #999;
-    border-right: 1px solid #999;
-    border-spacing: 0;
+}
+
+tr {
+    text-align: left;
 }
 
 th,
 td {
-    border-bottom: 1px solid #999;
-    border-left: 1px solid #999;
-    padding: .25rem;
     text-align: left;
 }
 
@@ -70,8 +85,4 @@ input {
 input[type=button],
 input[type=submit] {
     min-width: 0;
-}
-
-.text-center {
-    text-align: center;
 }
