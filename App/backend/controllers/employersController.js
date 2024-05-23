@@ -47,8 +47,11 @@ const getEmployerByID = async (req, res) => {
 // Returns status of creation of new employer in Employers
 const createEmployer = async (req, res) => {
     try {
+        console.log(req)
         const { body } = req
+        console.log(body)
         const { name } = body
+        console.log(name)
         let { location } = body
 
         // null out location if empty string is detected
@@ -85,7 +88,7 @@ const updateEmployer = async (req, res) => {
     const newEmployer = body
 
     try {
-        const [data] = await db.query('SELECT * FROM Employers WHERE id = ?', [
+        const [data] = await db.query('SELECT * FROM Employers WHERE employer_id = ?', [
             employerID,
         ])
 
@@ -93,17 +96,22 @@ const updateEmployer = async (req, res) => {
 
         // If any attributes are not equal, perform update
         if (!lodash.isEqual(newEmployer, oldEmployer)) {
+            console.log("NewEmployer: ", newEmployer)
             const query =
-                'UPDATE Employers SET name=?, location=? WHERE id=?'
+                'UPDATE Employers SET name=?, location=? WHERE employer_id=?'
 
             // Homeoworld is NULL-able FK in Employers, has to be valid INT FK ID or NULL
-            const location = newEmployer.location.trim() === '' && null
+            console.log("Update Query: ", query)
+            // Returns null or returns false: incorrect const location = newEmployer.location.trim() === '' && null
+            location = newEmployer.location.trim() === '' ? null : newEmployer.location.trim()
+            // newEmployer.location throws error if no location was passed
 
             const values = [
                 newEmployer.name,
                 location,
                 employerID,
             ]
+            console.log("valuesArr: ", values)
 
             // Perform the update
             await db.query(query, values)
@@ -131,7 +139,7 @@ const deleteEmployer = async (req, res) => {
     try {
         // Ensure the employer exitst
         const [isExisting] = await db.query(
-            'SELECT 1 FROM Employers WHERE id = ?',
+            'SELECT 1 FROM Employers WHERE employer_id = ?',
             [employerID]
         )
 
@@ -140,20 +148,18 @@ const deleteEmployer = async (req, res) => {
             return res.status(404).send('Employer not found')
         }
 
-        // Delete related records from the intersection table (see FK contraints bsg_cert_people)
+        // ?? Delete related records from the intersection table (see FK contraints bsg_cert_people)
+        // Delete the employer from Employers
         const [response] = await db.query(
-            'DELETE FROM bsg_cert_people WHERE pid = ?',
+            'DELETE FROM Employers WHERE employer_id = ?',
             [employerID]
         )
 
         console.log(
             'Deleted',
             response.affectedRows,
-            'rows from bsg_cert_people intersection table'
+            'rows from Employers table'
         )
-
-        // Delete the employer from Employers
-        await db.query('DELETE FROM Employers WHERE id = ?', [employerID])
 
         // Return the appropriate status code
         res.status(204).json({ message: 'Employer deleted successfully' })
