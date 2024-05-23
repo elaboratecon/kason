@@ -86,8 +86,7 @@ export const Employers = ({ apiURL }) => {
         setIsWriting(true)
         writeToAPI({
             apiURL: `${apiURL}${deleteState.employer_id}`,
-            method: 'DELETE',
-            data: deleteState
+            method: 'DELETE'
         }).then((res) => {
             setIsWriting(false)
             fetchEmployers()
@@ -157,19 +156,9 @@ export const Employers = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Edit Employer</legend>
-
-                        {/* <Prompted ID */}
-                        <label htmlFor="employer_id" className="required">id</label>
-                        <input
-                            type="number"
-                            name="id"
-                            id="id"
-                            value={editState?.employer_id ?? ''}
-                            onChange={(e) => updateField(e, setEditState)}
-                            aria-required="true"
-                            required
-                        />
-
+                        <br />
+                        <span>Employer Id: {editState.employer_id}</span>
+                        <br />
                         {/* <name */}
                         <label htmlFor="name" className="required">name</label>
                         <input
@@ -210,42 +199,12 @@ export const Employers = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Delete Employer</legend>
-
-                        {/* <Prompted ID */}
-                        <label htmlFor="employer_id" className="required">id</label>
-                        <input
-                            type="number"
-                            name="id"
-                            id="id"
-                            value={deleteState?.employer_id ?? ''}
-                            onChange={(e) => updateField(e, setEditState)}
-                            aria-required="true"
-                            required
-                        />
-
-                        {/* <name */}
-                        <label htmlFor="name" className="required">name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            value={deleteState?.name ?? ''}
-                            onChange={(e) => updateField(e, setEditState)}
-                            aria-required="true"
-                            required
-                        />
-
-                        {/* location */}
-                        <label htmlFor="location" className="required">location</label>
-                        <input
-                            type="text"
-                            name="location"
-                            id="location"
-                            value={deleteState?.location ?? ''}
-                            onChange={(e) => updateField(e, setEditState)}
-                            aria-required="true"
-                            required
-                        />
+                        <span>Employer Id: {deleteState.employer_id}</span>
+                        <br />
+                        <span>Employer Name: {deleteState.name}</span>
+                        <br />
+                        <span>Employer Location: {deleteState?.location ?? ''}</span>
+                        <br />
                     </fieldset>
                 </form>
             </Modal>

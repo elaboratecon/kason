@@ -163,6 +163,7 @@ const deleteEmployer = async (req, res) => {
 
         // Return the appropriate status code
         res.status(204).json({ message: 'Employer deleted successfully' })
+        // 204 must not have a body, it will ignore the attached .json(...)
     } catch (error) {
         console.error('Error deleting employer from the database:', error)
         res.status(500).json({ error: error.message })
