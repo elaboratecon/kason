@@ -56,6 +56,9 @@ td {
     text-align: left;
 }
 
+form {
+    text-align: left;
+}
 fieldset {
     border: 2px dashed #DDD;
     margin-bottom: .5rem;
@@ -63,12 +66,12 @@ fieldset {
     border-radius: 10px;
 }
 
-legend {
+form legend {
     color: #333;
     font-size: 1.2rem;
 }
 
-label {
+form label {
     display: block;
     margin-top: .5rem;
 }
@@ -85,4 +88,51 @@ input {
 input[type=button],
 input[type=submit] {
     min-width: 0;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    margin-left: -60px;
+    margin-top: -60px;
+    left: 50%;
+    top: 50%;
+    z-index: 9999;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 350ms;
+    opacity: 0.3;
+    z-index: 9998;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
