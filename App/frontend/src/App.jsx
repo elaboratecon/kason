@@ -31,23 +31,23 @@ function App() {
                         />
                     <Route
                         path="/employers"
-                        element={<Employers apiURL={`${baseAPI}employers`} />}
+                        element={<Employers apiURL={`${baseAPI}employers/`} />}
                     />
                     <Route
                         path="/candidates"
-                        element={<Candidates apiURL={`${baseAPI}candidates`} />}
+                        element={<Candidates apiURL={`${baseAPI}candidates/`} />}
                     />
                     <Route
                         path="/postings"
-                        element={<Postings apiURL={`${baseAPI}postings`} />}
+                        element={<Postings apiURL={`${baseAPI}postings/`} />}
                     />
                     <Route
                         path="/employment-histories"
-                        element={<EmploymentHistories apiURL={`${baseAPI}employment-histories`} />}
+                        element={<EmploymentHistories apiURL={`${baseAPI}employment-histories/`} />}
                     />
                     <Route
                         path="/candidates-for-postings"
-                        element={<CandidatesForPostings apiURL={`${baseAPI}candidates-for-postings`} />}
+                        element={<CandidatesForPostings apiURL={`${baseAPI}candidates-for-postings/`} />}
                     />
                 </Routes>
             </main>
