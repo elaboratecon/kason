@@ -13,10 +13,14 @@ const getEmployers = async (req, res) => {
         // Execute the query using the "db" object from the configuration file
         const [rows] = await db.query(query)
         // Send back the rows to the client
-        res.status(200).json(rows)
+        res
+            .status(200)
+            .json(rows)
     } catch (error) {
         console.error('Error fetching employers from the database:', error)
-        res.status(500).json({ error: 'Error fetching employers' })
+        res
+            .status(500)
+            .json({ error: 'Error fetching employers' })
     }
 }
 
@@ -34,22 +38,33 @@ const getEmployerByID = async (req, res) => {
         res.json(employer)
     } catch (error) {
         console.error('Error fetching employer from the database:', error)
-        res.status(500).json({ error: 'Error fetching employer' })
+        res
+            .status(500)
+            .json({ error: 'Error fetching employer' })
     }
 }
 
 // Returns status of creation of new employer in Employers
 const createEmployer = async (req, res) => {
     try {
-        const { name, location } = req.body
+        const { body } = req
+        const { name } = body
+        let { location } = body
+
+        // null out location if empty string is detected
+        if (location.trim() === '') location = null
+
         const query =
             'INSERT INTO Employers (name, location) VALUES (?, ?)'
 
+        // this needs some love. We should be getting everything back, just like the getEmployers SELECT
         const response = await db.query(query, [
             name,
-            location === '' && null,
+            location,
         ])
-        res.status(201).json(response)
+        res
+            .status(201)
+            .json(response)
     } catch (error) {
         // Print the error for the dev
         console.error('Error creating employer:', error)
@@ -60,10 +75,14 @@ const createEmployer = async (req, res) => {
 
 
 const updateEmployer = async (req, res) => {
+    const { params, body } = req
+    const { id } = params
+
     // Get the employer ID
-    const employerID = req.params.id
+    const employerID = id
+    
     // Get the employer object
-    const newEmployer = req.body
+    const newEmployer = body
 
     try {
         const [data] = await db.query('SELECT * FROM Employers WHERE id = ?', [
@@ -103,8 +122,11 @@ const updateEmployer = async (req, res) => {
 
 // Endpoint to delete a emloyer from the database
 const deleteEmployer = async (req, res) => {
-    console.log('Deleting employer with id:', req.params.id)
-    const employerID = req.params.id
+    const { params } = req
+    const { id } = params
+
+    console.log('Deleting employer with id:', id)
+    const employerID = id
 
     try {
         // Ensure the employer exitst
