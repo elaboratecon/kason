@@ -9,36 +9,41 @@ export const Employers = ({ apiURL }) => {
     // state
     const [employers, setEmployers] = useState([])
     const [isWriting, setIsWriting] = useState(false)
+    const [formState, setFormState] = useState({})
     const [isOpenAddModal, setIsOpenAddModal] = useState(false)
-    const [addState, setAddState] = useState({})
     const [isOpenEditModal, setIsOpenEditModal] = useState(false)
-    const [editState, setEditState] = useState({})
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
-    const [deleteState, setDeleteState] = useState({})
 
-    // functions
+    // fetch data function
     function fetchEmployers() {
         readFromAPI(apiURL).then((res) => {
             setEmployers(res)
         })
     }
 
+    // toggle functions
     function toggleAdd() {
         setIsOpenAddModal(!isOpenAddModal)
-        setAddState({})
+        setFormState({})
     }
 
     function toggleEdit() {
         setIsOpenEditModal(!isOpenEditModal)
-        setEditState({})
+        setFormState({})
     }
 
+    function toggleDelete(){
+        setIsOpenDeleteModal(!isOpenDeleteModal)
+        setFormState({})
+    }
+
+    // modify database functions
     function addEmplyoyer() {
         setIsWriting(true)
         writeToAPI({
             apiURL,
             method: 'POST',
-            data: addState,
+            data: formState,
         }).then((res) => {
             setIsWriting(false)
             fetchEmployers()
@@ -46,46 +51,23 @@ export const Employers = ({ apiURL }) => {
         })
     }
 
-    function triggerEditModalById(rowData) {
-
-        setEditState({employer_id: rowData.employer_id,
-            name: rowData.name,
-            location: rowData.location})
-        setIsOpenEditModal(!isOpenEditModal)
-
-    }
-
     function editEmployer() {
         setIsWriting(true)
         writeToAPI({
-            apiURL: `${apiURL}${editState.employer_id}`,
+            apiURL: `${apiURL}${formState.employer_id}`,
             method: 'PUT',
-            data: editState
+            data: formState
         }).then((res) => {
             setIsWriting(false)
             fetchEmployers()
             toggleEdit()
         })
     }
-    
-    function toggleDelete(){
-        setIsOpenDeleteModal(!isOpenDeleteModal)
-        setDeleteState({})
-    }
-
-    function triggerDeleteModalById(rowData) {
-        setDeleteState({
-            employer_id: rowData.employer_id,
-            name: rowData.name,
-            location: rowData.location
-        })
-        setIsOpenDeleteModal(!isOpenDeleteModal)
-    }
 
     function deleteEmployer(){
         setIsWriting(true)
         writeToAPI({
-            apiURL: `${apiURL}${deleteState.employer_id}`,
+            apiURL: `${apiURL}${formState.employer_id}`,
             method: 'DELETE'
         }).then((res) => {
             setIsWriting(false)
@@ -94,8 +76,43 @@ export const Employers = ({ apiURL }) => {
         })
     }
 
+    // trigger modal functions
+    function triggerEditModalById(rowData) {
+        const {
+            employer_id: employerID,
+            name,
+            location,
+        } = rowData
+
+        setFormState({
+            employer_id: employerID,
+            name: name,
+            location: location
+        })
+        setIsOpenEditModal(!isOpenEditModal)
+    }
+
+    function triggerDeleteModalById(rowData) {
+        const {
+            employer_id: employerID,
+            name,
+            location,
+        } = rowData
+
+        setFormState({
+            employer_id: employerID,
+            name: name,
+            location: location
+        })
+        setIsOpenDeleteModal(!isOpenDeleteModal)
+    }
+
+    // useEffects
     useEffect(() => {
         fetchEmployers()
+    }, [])
+
+    useEffect(() => {
     }, [employers])
     
     return (
@@ -122,8 +139,8 @@ export const Employers = ({ apiURL }) => {
                             type="text"
                             name="name"
                             id="name"
-                            value={addState?.name ?? ''}
-                            onChange={(e) => updateField(e, setAddState)}
+                            value={formState?.name ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
                             aria-required="true"
                             required
                         />
@@ -134,8 +151,8 @@ export const Employers = ({ apiURL }) => {
                             type="text"
                             name="location"
                             id="location"
-                            value={addState?.location ?? ''}
-                            onChange={(e) => updateField(e, setAddState)}
+                            value={formState?.location ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
                             aria-required="true"
                             required
                         />
@@ -157,7 +174,7 @@ export const Employers = ({ apiURL }) => {
                     <fieldset>
                         <legend className="visually-hidden">Edit Employer</legend>
                         <br />
-                        <span>Employer Id: {editState.employer_id}</span>
+                        <span>Employer Id: {formState.employer_id}</span>
                         <br />
                         {/* <name */}
                         <label htmlFor="name" className="required">name</label>
@@ -165,8 +182,8 @@ export const Employers = ({ apiURL }) => {
                             type="text"
                             name="name"
                             id="name"
-                            value={editState?.name ?? ''}
-                            onChange={(e) => updateField(e, setEditState)}
+                            value={formState?.name ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
                             aria-required="true"
                             required
                         />
@@ -177,8 +194,8 @@ export const Employers = ({ apiURL }) => {
                             type="text"
                             name="location"
                             id="location"
-                            value={editState?.location ?? ''}
-                            onChange={(e) => updateField(e, setEditState)}
+                            value={formState?.location ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
                             aria-required="true"
                             required
                         />
@@ -199,11 +216,11 @@ export const Employers = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Delete Employer</legend>
-                        <span>Employer Id: {deleteState.employer_id}</span>
+                        <span>Employer Id: {formState.employer_id}</span>
                         <br />
-                        <span>Employer Name: {deleteState.name}</span>
+                        <span>Employer Name: {formState.name}</span>
                         <br />
-                        <span>Employer Location: {deleteState?.location ?? ''}</span>
+                        <span>Employer Location: {formState?.location ?? ''}</span>
                         <br />
                     </fieldset>
                 </form>
@@ -217,7 +234,7 @@ export const Employers = ({ apiURL }) => {
                             <th className="text-center">
                                 <a href="#" onClick={() => setIsOpenAddModal(true)}>New</a>
                             </th>
-                            <th>
+                            <th className="text-center">
                                 Delete
                             </th>
                             <th className="text-center">employer_id</th>
@@ -227,7 +244,12 @@ export const Employers = ({ apiURL }) => {
                     </thead>
                     <tbody>
                         {employers.map((employer, index) => (
-                            <TableRow data={employer} key={index.toString()} triggerDeleteModalById= {triggerDeleteModalById} triggerEditModalById={triggerEditModalById}/>
+                            <TableRow
+                                data={employer}
+                                triggerDeleteModalById={triggerDeleteModalById}
+                                triggerEditModalById={triggerEditModalById}
+                                key={index.toString()}
+                            />
                         ))}
                     </tbody>
                 </table>

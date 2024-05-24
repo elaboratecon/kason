@@ -1,7 +1,8 @@
 export const readFromAPI = async (apiURL) => {
     try {
         const response = await fetch(apiURL)
-        return await response.json()
+        const data = await response.json()
+        return data
     } catch (e) {
         console.log(e)
     }
@@ -22,9 +23,7 @@ export const writeToAPI = async ({
 
     try {
         const response = await fetch(apiURL, config)
-        console.log("Response: ", response.status)
         if (response.status === 204){
-            console.log("Deleted Element")
             return  }
         return await response.json()
     } catch (e) {
