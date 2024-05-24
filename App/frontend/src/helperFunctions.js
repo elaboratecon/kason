@@ -22,11 +22,15 @@ export const writeToAPI = async ({
 
     try {
         const response = await fetch(apiURL, config)
+        console.log("Response: ", response.status)
+        if (response.status === 204){
+            console.log("Deleted Element")
+            return  }
         return await response.json()
     } catch (e) {
         console.log(e)
     }
-}
+} 
 
 export const formatDate = (unformattedDate) => (
     new Date(unformattedDate).toLocaleDateString('en-us', {
