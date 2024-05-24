@@ -3,6 +3,11 @@ import { RiCreativeCommonsZeroFill } from "react-icons/ri";
 import TableRow from "./PersonTableRow";
 import axios from "axios";
 
+// Unused code from starter code
+// Code Based on Starter Code accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 const PeopleTable = () => {
   const [people, setPeople] = useState([]);
 

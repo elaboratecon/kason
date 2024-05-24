@@ -5,6 +5,10 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 import { readFromAPI } from '../helperFunctions'
 
+// Code Based on Starter Code accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 export const CandidatesForPostings = ({ apiURL }) => {
     const [candidatesForPostings, setCandidatesForPostings] = useState([])
     const [addModalisOpen, setAddModalisOpen] = useState(false)

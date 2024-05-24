@@ -5,6 +5,10 @@ import { readFromAPI, writeToAPI, updateField } from '../helperFunctions'
 
 import { LoaderOverlay, Modal } from '../components/'
 
+// Code Based on Starter Code accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 export const Employers = ({ apiURL }) => {
     // state
     const [employers, setEmployers] = useState([])

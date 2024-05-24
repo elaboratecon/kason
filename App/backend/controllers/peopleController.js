@@ -5,6 +5,11 @@ require("dotenv").config();
 // Util to deep-compare two objects
 const lodash = require("lodash");
 
+// Unused code from the starter code
+// Code Based on Starter Code accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 // Returns all rows of people in bsg_people
 const getPeople = async (req, res) => {
   try {

@@ -6,6 +6,10 @@ import Navigation from './components/navbar/Navigation'
 
 import { Employers, Candidates, Postings, EmploymentHistories, CandidatesForPostings } from './pages/'
 
+// Code Based on Starter Code accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 // Endpoints
 const baseAPI = import.meta.env.VITE_API_URL
 

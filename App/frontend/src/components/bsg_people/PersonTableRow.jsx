@@ -3,6 +3,11 @@ import { BsTrash } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
+// Unused code from starter code
+// Code Based on Starter Code accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 /* eslint-disable react/prop-types */
 const TableRow = ({ person, fetchPeople }) => {
   // Hook that allows us to navigate programmatically

@@ -1,3 +1,5 @@
+-- Unused code from the starter code
+
 -- Disable foreign key checks temporarily
 SET
     foreign_key_checks = 0;

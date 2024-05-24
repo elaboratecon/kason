@@ -3,6 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
+// Unused code from starter code
+// Code Based on Starter Code accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 const UpdatePerson = () => {
   const { id } = useParams();
   const navigate = useNavigate();
