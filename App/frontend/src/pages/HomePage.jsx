@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom'
-// Testing Kevin Commit - delete
+
+
+// Code Based on Starter Code accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
 
 const HomePage = () => {
     return (
