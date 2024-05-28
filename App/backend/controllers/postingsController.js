@@ -25,7 +25,162 @@ const getPostings = async (req, res) => {
     }
 }
 
+// Returns a single posting by their unique ID from Postings
+const getPostingByID = async (req, res) => {
+    try {
+        const postingID = req.params.id
+        const query = 'SELECT posting_id, position, description, Employers.name AS employer_name, Employers.location AS employer_location FROM Postings INNER JOIN Employers ON Employers.employer_id = Postings.employer_id WHERE posting_id = ?;'
+        const [result] = await db.query(query, [postingID])
+        // Check if posting was found
+        if (result.length === 0) {
+            return res.status(404).json({ error: 'Posting not found' })
+        }
+        const posting = result[0]
+        res.json(posting)
+    } catch (error) {
+        console.error('Error fetching posting from the database:', error)
+        res
+            .status(500)
+            .json({ error: 'Error fetching posting' })
+    }
+}
+
+// Returns status of creation of new posting in Postings
+const createPosting = async (req, res) => {
+    try {
+        const { body } = req
+        console.log(body)
+        const { position } = body
+        let { description } = body
+        const { employer_id } = body
+
+        // null out location if empty string is detected
+        if (description.trim() === '') description = null
+
+        const query =
+            'INSERT INTO Postings (position, description, employer_id) VALUES (?, ?, ?)'
+
+        // this needs some love. We should be getting everything back, just like the getPostings SELECT
+        const response = await db.query(query, [
+            position,
+            description,
+            employer_id,
+        ])
+        res
+            .status(201)
+            .json(response)
+    } catch (error) {
+        // Print the error for the dev
+        console.error('Error creating posting:', error)
+        // Inform the client of the error
+        res.status(500).json({ error: 'Error creating posting' })
+    }
+}
+
+
+const updatePosting = async (req, res) => {
+    const { params, body } = req
+    const { id } = params
+    const { position } = body
+    let { description } = body
+    const { employer_id } = body
+
+
+    // Get the posting ID
+    const postingID = id
+    
+    // Get the posting object
+    const newPosting = body
+
+    try {
+        const [data] = await db.query('SELECT posting_id, position, description, Employers.name AS employer_name, Employers.location AS employer_location FROM Postings INNER JOIN Employers ON Employers.employer_id = Postings.employer_id WHERE posting_id = ?;', [
+            postingID,
+        ])
+
+        const oldPosting = data[0]
+
+        // If any attributes are not equal, perform update
+        if (!lodash.isEqual(newPosting, oldPosting)) {
+            console.log("NewPosting: ", newPosting)
+            const query =
+                'UPDATE Postings SET position = ?, description = ?, employer_id = (SELECT employer_id FROM Employers WHERE employer_id = ?) WHERE posting_id = ?;'
+
+            console.log("Update Query: ", query)
+            // Recheck line below and comments later
+            // Returns null or returns false: incorrect const location = newEmployer.location.trim() === '' && null
+            description = newPosting.description.trim() === '' ? null : newPosting.description.trim()
+            // newEmployer.location throws error if no location was passed
+
+            const values = [
+                position,
+                description,
+                employer_id,
+                postingID,
+            ]
+            console.log("valuesArr: ", values)
+
+            // Perform the update
+            await db.query(query, values)
+            // Inform client of success and return 
+            return res.json({ message: 'Posting updated successfully.' })
+        }
+
+        res.json({ message: 'Posting details are the same, no update' })
+    } catch (error) {
+        console.log('Error updating posting', error)
+        res
+            .status(500)
+            .json({ error: `Error updating the posting with id ${postingID}` })
+    }
+}
+
+// Endpoint to delete a posting from the database
+const deletePosting = async (req, res) => {
+    const { params } = req
+    const { id } = params
+
+    console.log('Deleting posting with id:', id)
+    const postingID = id
+
+    try {
+        // Ensure the posting exists
+        const [isExisting] = await db.query(
+            'SELECT 1 FROM Postings WHERE posting_id = ?',
+            [postingID]
+        )
+
+        // If the employer doesn't exist, return an error
+        if (isExisting.length === 0) {
+            return res.status(404).send('Posting not found')
+        }
+
+        // ?? Delete related records from the intersection table (see FK contraints bsg_cert_people)
+        // Delete the posting from Postings
+        const [response] = await db.query(
+            'DELETE FROM Postings WHERE posting_id = ?',
+            [postingID]
+        )
+
+        console.log(
+            'Deleted',
+            response.affectedRows,
+            'rows from Postings table'
+        )
+
+        // Return the appropriate status code
+        res.status(204).json({ message: 'Posting deleted successfully' })
+        // 204 must not have a body, it will ignore the attached .json(...)
+    } catch (error) {
+        console.error('Error deleting posting from the database:', error)
+        res.status(500).json({ error: error.message })
+    }
+}
+
 // Export the functions as methods of an object
 module.exports = {
     getPostings,
+    getPostingByID,
+    createPosting,
+    updatePosting,
+    deletePosting,
 }

@@ -132,7 +132,7 @@ const updateEmployer = async (req, res) => {
     }
 }
 
-// Endpoint to delete a emloyer from the database
+// Endpoint to delete a employer from the database
 const deleteEmployer = async (req, res) => {
     const { params } = req
     const { id } = params
@@ -141,7 +141,7 @@ const deleteEmployer = async (req, res) => {
     const employerID = id
 
     try {
-        // Ensure the employer exitst
+        // Ensure the employer exists
         const [isExisting] = await db.query(
             'SELECT 1 FROM Employers WHERE employer_id = ?',
             [employerID]

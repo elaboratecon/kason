@@ -1,30 +1,262 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
-import { readFromAPI } from '../helperFunctions'
+import { readFromAPI, writeToAPI, updateField } from '../helperFunctions'
+
+import { LoaderOverlay, Modal } from '../components/'
 
 // Code Based on Starter Code accessed 5/24/2024
 // by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
 // https://github.com/osu-cs340-ecampus/react-starter-app
 
 export const Postings = ({ apiURL }) => {
+    // state
     const [postings, setPostings] = useState([])
+    const [isWriting, setIsWriting] = useState(false)
+    const [formState, setFormState] = useState({})
+    const [isOpenAddModal, setIsOpenAddModal] = useState(false)
+    const [isOpenEditModal, setIsOpenEditModal] = useState(false)
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
 
+    // fetch data function
     function fetchPostings() {
         readFromAPI(apiURL).then((res) => {
             setPostings(res)
         })
     }
 
+    // toggle functions
+    function toggleAdd() {
+        setIsOpenAddModal(!isOpenAddModal)
+        setFormState({})
+    }
+
+    function toggleEdit() {
+        setIsOpenEditModal(!isOpenEditModal)
+        setFormState({})
+    }
+
+    function toggleDelete(){
+        setIsOpenDeleteModal(!isOpenDeleteModal)
+        setFormState({})
+    }
+
+    // modify database functions
+    function addPosting() {
+        setIsWriting(true)
+        writeToAPI({
+            apiURL,
+            method: 'POST',
+            data: formState,
+        }).then((res) => {
+            setIsWriting(false)
+            fetchPostings()
+            toggleAdd()
+        })
+    }
+
+    function editPosting() {
+        setIsWriting(true)
+        writeToAPI({
+            apiURL: `${apiURL}${formState.posting_id}`,
+            method: 'PUT',
+            data: formState
+        }).then((res) => {
+            setIsWriting(false)
+            fetchPostings()
+            toggleEdit()
+        })
+    }
+
+    function deletePosting(){
+        setIsWriting(true)
+        writeToAPI({
+            apiURL: `${apiURL}${formState.posting_id}`,
+            method: 'DELETE'
+        }).then((res) => {
+            setIsWriting(false)
+            fetchPostings()
+            toggleDelete()
+        })
+    }
+
+    // trigger modal functions
+    function triggerEditModalById(rowData) {
+        const {
+            posting_id: postingID,
+            position,
+            description,
+            employer_name: employerName,
+        } = rowData
+
+        setFormState({
+            posting_id: postingID,
+            position,
+            description,
+            employer_name: employerName,
+        })
+        setIsOpenEditModal(!isOpenEditModal)
+    }
+
+    function triggerDeleteModalById(rowData) {
+        const {
+            posting_id: postingID,
+            position,
+            description,
+            employer_name: employerName,
+        } = rowData
+
+        setFormState({
+            posting_id: postingID,
+            position,
+            description,
+            employer_name: employerName,
+        })
+        setIsOpenDeleteModal(!isOpenDeleteModal)
+    }
+
+
+    // on page load
     useEffect(() => {
         fetchPostings()
     }, [])
 
     return (
         <>
-            <div style={{marginBottom: '1rem'}}>
-                <a href="#" onClick={() => console.log('showAllForms')}>Show All Forms</a>
-            </div>
+            <LoaderOverlay enable={isWriting} />
+
+            {/* MODAL: Add New Posting */}
+            <Modal
+                modalSettings={{
+                    isOpen: isOpenAddModal,
+                    toggle: toggleAdd,
+                }}
+                headerLabel="Add Posting"
+                buttonLabel="Add Posting"
+                onClick={addPosting}
+            >
+                <form>
+                    <fieldset>
+                        <legend className="visually-hidden">Add Posting</legend>
+
+                        {/* <position */}
+                        <label htmlFor="position" className="required">position</label>
+                        <input
+                            type="text"
+                            name="position"
+                            id="position"
+                            value={formState?.position ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
+                            aria-required="true"
+                            required
+                        />
+
+                        {/* description */}
+                        <label htmlFor="description" className="required">description</label>
+                        <input
+                            type="text"
+                            name="description"
+                            id="description"
+                            value={formState?.description ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
+                            aria-required="true"
+                            required
+                        />
+
+                        {/* employer_id */}
+                        <label htmlFor="employer_id" className="required">employer_id</label>
+                        <input
+                            type="text"
+                            name="employer_id"
+                            id="employer_id"
+                            value={formState?.employer_id ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
+                            aria-required="true"
+                            required
+                        />
+                    </fieldset>
+                </form>
+            </Modal>
+
+            {/* MODAL: Edit Existing Posting */}
+            <Modal
+                modalSettings={{
+                    isOpen: isOpenEditModal,
+                    toggle: toggleEdit,
+                }}
+                headerLabel="Edit Posting"
+                buttonLabel="Edit Posting"
+                onClick={editPosting}
+            >
+                <form>
+                    <fieldset>
+                        <legend className="visually-hidden">Edit Posting</legend>
+                        <br />
+                        <span>Posting Id: {formState.posting_id}</span>
+                        <br />
+                        {/* <position */}
+                        <label htmlFor="position" className="required">position</label>
+                        <input
+                            type="text"
+                            name="position"
+                            id="position"
+                            value={formState?.position ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
+                            aria-required="true"
+                            required
+                        />
+
+                        {/* description */}
+                        <label htmlFor="description" className="required">description</label>
+                        <input
+                            type="text"
+                            name="description"
+                            id="description"
+                            value={formState?.description ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
+                            aria-required="true"
+                            required
+                        />
+
+                        {/* employer_id */}
+                        <label htmlFor="employer_id" className="required">employer_id</label>
+                        <input
+                            type="text"
+                            name="employer_id"
+                            id="employer_id"
+                            value={formState?.employer_id ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
+                            aria-required="true"
+                            required
+                        />
+                    </fieldset>
+                </form>
+            </Modal>
+
+            {/* MODAL: Delete Existing Posting */}
+            <Modal
+                modalSettings={{
+                    isOpen: isOpenDeleteModal,
+                    toggle: toggleDelete,
+                }}
+                headerLabel="Delete Posting"
+                buttonLabel="Delete Posting"
+                onClick={deletePosting}
+            >
+                <form>
+                    <fieldset>
+                        <legend className="visually-hidden">Delete Posting</legend>
+                        <span>Posting Id: {formState.posting_id}</span>
+                        <br />
+                        <span>Position: {formState.position}</span>
+                        <br />
+                        <span>Description: {formState?.description ?? ''}</span>
+                        <br />
+                        <span>employer_id: {formState?.employer_id ?? ''}</span>
+                        <br />
+                    </fieldset>
+                </form>
+            </Modal>
 
             <section id="browsePostings">
                 <h2>Browse Postings</h2>
@@ -32,9 +264,9 @@ export const Postings = ({ apiURL }) => {
                     <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
-                                <a href="#" onClick={() => console.log('addNewPosting')}>New</a>
+                                <a href="#" onClick={() => setIsOpenAddModal(true)}>New</a>
                             </th>
-                            <th></th>
+                            <th className="text-center">Delete</th>
                             <th className="text-center">posting_id</th>
                             <th>position</th>
                             <th>employer_name</th>
@@ -43,7 +275,10 @@ export const Postings = ({ apiURL }) => {
                     </thead>
                     <tbody>
                         {postings.map((posting, index) => (
-                            <TableRow data={posting} key={index.toString()} />
+                            <TableRow data={posting} 
+                            triggerEditModalById= {triggerEditModalById} 
+                            triggerDeleteModalById= {triggerDeleteModalById} 
+                            key={index.toString()} />
                         ))}
                     </tbody>
                 </table>
@@ -52,7 +287,7 @@ export const Postings = ({ apiURL }) => {
     )
 }
 
-const TableRow = ({ data }) => {
+const TableRow = ({ data, triggerEditModalById, triggerDeleteModalById }) => {
     const {
         posting_id: postingID,
         position,
@@ -63,15 +298,15 @@ const TableRow = ({ data }) => {
     return (
         <tr>
             <td className="text-center">
-                <a href="#" onClick={() => console.log('editPosting')}>Edit</a>
+                <a href="#" onClick={() => triggerEditModalById(data)}>Edit</a>
             </td>
             <td className="text-center">
-                <a href="#" onClick={() => console.log('deletePosting')}>Delete</a>
+                <a href="#" onClick={() => triggerDeleteModalById(data)}>Delete</a>
             </td>
             <td className="text-center">{postingID}</td>
             <td>{position}</td>
             <td>{employerName}</td>
-            <td>{description}</td>
+            <td>{description === null ? 'NULL' : description}</td>
         </tr>
     )
 }
