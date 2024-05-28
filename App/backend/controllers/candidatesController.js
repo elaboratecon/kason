@@ -137,7 +137,7 @@ const updateCandidate = async (req, res) => {
     }
 }
 
-// Endpoint to delete a emloyer from the database
+// Endpoint to delete a candidate from the database
 const deleteCandidate = async (req, res) => {
     const { params } = req
     const { id } = params
