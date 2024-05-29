@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { readFromAPI, writeToAPI, updateField } from '../helperFunctions'
 
-import { readFromAPI } from '../helperFunctions'
+import { LoaderOverlay, Modal } from '../components/'
 
 // Code Based on Starter Code accessed 5/24/2024
 // by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
@@ -11,69 +11,136 @@ import { readFromAPI } from '../helperFunctions'
 
 export const CandidatesForPostings = ({ apiURL }) => {
     const [candidatesForPostings, setCandidatesForPostings] = useState([])
-    const [addModalisOpen, setAddModalisOpen] = useState(false)
+    const [postingsPositions, setPostingsPositions] = useState([])
+    const [candidatesFullNames, setCandidatesFullNames] = useState([])
+    const [isWriting, setIsWriting] = useState(false)
+    const [formState, setFormState] = useState({})
+    const [isOpenAddModal, setIsOpenAddModal] = useState(false)
+    const [isOpenEditModal, setIsOpenEditModal] = useState(false)
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
 
+    // default data call
     function fetchCandidatesForPostings() {
         readFromAPI(apiURL).then((res) => {
-            setCandidatesForPostings(res)
+            const {
+                candidates_for_postings: candidatesForPostings,
+                postings_positions: postingsPositions,
+                candidates_full_names: candidatesFullNames,
+            } = res
+
+            setCandidatesForPostings(candidatesForPostings)
+            setPostingsPositions(postingsPositions)
+            setCandidatesFullNames(candidatesFullNames)
         })
     }
+
+    // toggle functions
+    function toggleAdd() {
+        setIsOpenAddModal(!isOpenAddModal)
+        setFormState({})
+    }
+
+    // modify database functions
+    function addCandidateForPosting() {
+        setIsWriting(true)
+        writeToAPI({
+            apiURL,
+            method: 'POST',
+            data: formState,
+        }).then((res) => {
+            setIsWriting(false)
+            fetchCandidatesForPostings()
+            toggleAdd()
+        })
+    }
+
 
     useEffect(() => {
         fetchCandidatesForPostings()
     }, [])
 
+    // FOR TESTING PURPOSES ONLY
+    useEffect(() => {
+        console.log(formState)
+    }, [formState])
+
     return (
         <>
-            {/* Add New Candidate Modal */}
-            <AddCandidateModal
+            <LoaderOverlay enable={isWriting} />
+
+            {/* Modal: Add */}
+            <Modal
                 modalSettings={{
-                    size: "lg",
-                    backdrop: true,
-                    centered: true,
-                    isOpen: addModalisOpen,
-                    toggle: () => setAddModalisOpen(!addModalisOpen),
+                    isOpen: isOpenAddModal,
+                    toggle: toggleAdd,
                 }}
-                header="Add CandidateForPosting"
+                headerLabel="Add CandidateForPosting"
+                buttonLabel="Add CandidateForPosting"
+                onClick={addCandidateForPosting}
             >
-                <form
-                    action="/candidates-for-postings"
-                    method="POST"
-                    onsubmit="event.preventDefault()"
-                >
+                <form onSubmit={(e) => e.preventDefault()}>
                     <fieldset>
-                        <legend>Add CandidateForPosting</legend>
+                        <legend className="visually-hidden">Add CandidateForPosting</legend>
 
                         {/* posting_id */}
-                        <label htmlFor="posting_id">posting_position</label>
+                        <label htmlFor="posting_id" className="required">posting_position</label>
                         <select
                             name="posting_id"
                             id="posting_id"
+                            value={formState?.posting_id ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
+                            aria-required="true"
+                            required
                         >
-                            <option value="">Select an Option</option>
-                            <option value="1">Cashier</option>
-                            <option value="2" selected>Florist</option>
-                            <option value="3">Front Counter</option>
-                            <option value="4">Deli Counter</option>
+                            <option
+                                value=""
+                                key="posting-id-default-non-select"
+                                disabled={true}
+                            >
+                                Select an Option
+                            </option>
+                            {postingsPositions.map(({
+                                posting_id: postingID,
+                                position,
+                                employer_name: employerName,
+                                employer_location: employerLocation,
+                            }, index) => (
+                                <option value={postingID} key={index.toString()}>
+                                    {`${position}, ${employerName} (${employerLocation})`}
+                                </option>
+                            )
+                            )}
                         </select>
 
                         {/* candidate_id */}
-                        <label htmlFor="candidate_id">candidate_full_name</label>
+                        <label htmlFor="candidate_id" className="required">candidate_full_name</label>
                         <select
                             name="candidate_id"
                             id="candidate_id"
+                            value={formState?.candidate_id ?? ''}
+                            onChange={(e) => updateField(e, setFormState)}
+                            aria-required="true"
+                            required
                         >
-                            <option value="">Select an Option</option>
-                            <option value="1">Harry Smith</option>
-                            <option value="2" selected>Patty Potter</option>
-                            <option value="3">Kyle Richards</option>
-                            <option value="4">Robbie Green</option>
+                            <option
+                                value=""
+                                key="candidate-id-default-non-select"
+                                disabled={true}
+                            >
+                                Select an Option
+                            </option>
+                            {candidatesFullNames.map(({
+                                candidate_id: candidateID,
+                                candidate_full_name: candidateFullName,
+                            }, index) => (
+                                <option value={candidateID} key={index.toString()}>
+                                    {candidateFullName}
+                                </option>
+                            ))}
                         </select>
                     </fieldset>
-                    <input type="button" value="Cancel" onClick="browseCandidatesForPostings()" />
-                    <input value="Add CandidateForPosting" type="submit" />
                 </form>
-            </AddCandidateModal>
+            </Modal>
 
             <section id="browseCandidatesForPostings">
                 <h2>Browse CandidatesForPostings</h2>
@@ -81,7 +148,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                     <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
-                                <a href="#" onClick={() => setAddModalisOpen(true)}>New</a>
+                                <a href="#" onClick={() => toggleAdd()}>New</a>
                             </th>
                             <th></th>
                             <th className="text-center">candidate_for_posting_id</th>
@@ -119,27 +186,5 @@ const TableRow = ({ data }) => {
             <td>{postingPosition}</td>
             <td>{candidateFullName}</td>
         </tr>
-    )
-}
-
-const AddCandidateModal = (props) => {
-    const { modalSettings, header, children } = props
-    const { toggle } = modalSettings
-
-    return (
-        <Modal {...modalSettings}>
-            <ModalHeader toggle={toggle}>{header}</ModalHeader>
-            <ModalBody>
-                {children}
-            </ModalBody>
-            <ModalFooter>
-                <Button outline color="secondary" onClick={toggle}>
-                    Cancel
-                </Button>
-                <Button color="primary" onClick={toggle}>
-                    Do Something
-                </Button>{' '}
-            </ModalFooter>
-        </Modal>
     )
 }
