@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
-import { readFromAPI, writeToAPI, updateField } from '../helperFunctions'
+import { readFromAPI, writeToAPI, updateField, updateDropdown } from '../helperFunctions'
 
 import { LoaderOverlay, Modal } from '../components/'
 
@@ -12,6 +12,7 @@ import { LoaderOverlay, Modal } from '../components/'
 export const Postings = ({ apiURL }) => {
     // state
     const [postings, setPostings] = useState([])
+    const [employers, setEmployers] = useState([])
     const [isWriting, setIsWriting] = useState(false)
     const [formState, setFormState] = useState({})
     const [isOpenAddModal, setIsOpenAddModal] = useState(false)
@@ -21,7 +22,9 @@ export const Postings = ({ apiURL }) => {
     // fetch data function
     function fetchPostings() {
         readFromAPI(apiURL).then((res) => {
-            setPostings(res)
+            const { postings, employers } = res
+            setPostings(postings)
+            setEmployers(employers)
         })
     }
 
@@ -82,19 +85,7 @@ export const Postings = ({ apiURL }) => {
 
     // trigger modal functions
     function triggerEditModalById(rowData) {
-        const {
-            posting_id: postingID,
-            position,
-            description,
-            employer_name: employerName,
-        } = rowData
-
-        setFormState({
-            posting_id: postingID,
-            position,
-            description,
-            employer_name: employerName,
-        })
+        setFormState(rowData)
         setIsOpenEditModal(!isOpenEditModal)
     }
 
@@ -115,11 +106,15 @@ export const Postings = ({ apiURL }) => {
         setIsOpenDeleteModal(!isOpenDeleteModal)
     }
 
-
     // on page load
     useEffect(() => {
         fetchPostings()
     }, [])
+
+    // FOR TESTING PURPOSES ONLY
+    useEffect(() => {
+        console.log(formState)
+    }, [formState])
 
     return (
         <>
@@ -151,6 +146,35 @@ export const Postings = ({ apiURL }) => {
                             required
                         />
 
+                        {/* employer_id */}
+                        <label htmlFor="employer_id" className="required">employer_id</label>
+                        <select
+                            name="employer_id"
+                            id="employer_id"
+                            value={formState?.employer_id ?? ''}
+                            onChange={(e) => updateDropdown(e, setFormState)}
+                            aria-required="true"
+                            required
+                        >
+                            <option
+                                value=""
+                                key="employer-id-default-non-select"
+                                disabled={true}
+                            >
+                                Select an Option
+                            </option>
+                            {employers.map(({
+                                employer_id: employerID,
+                                name: name,
+                                location,
+                            }, index) => (
+                                <option value={employerID} key={index.toString()}>
+                                    {`${name} (${location})`}
+                                </option>
+                            )
+                            )}
+                        </select>
+
                         {/* description */}
                         <label htmlFor="description" className="required">description</label>
                         <input
@@ -158,18 +182,6 @@ export const Postings = ({ apiURL }) => {
                             name="description"
                             id="description"
                             value={formState?.description ?? ''}
-                            onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
-                            required
-                        />
-
-                        {/* employer_id */}
-                        <label htmlFor="employer_id" className="required">employer_id</label>
-                        <input
-                            type="text"
-                            name="employer_id"
-                            id="employer_id"
-                            value={formState?.employer_id ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
                             aria-required="true"
                             required
@@ -192,8 +204,10 @@ export const Postings = ({ apiURL }) => {
                     <fieldset>
                         <legend className="visually-hidden">Edit Posting</legend>
 
+                        {/* posting_id */}
                         <span>posting_id: {formState.posting_id}</span>
                         <br />
+
                         {/* <position */}
                         <label htmlFor="position" className="required">position</label>
                         <input
@@ -206,6 +220,35 @@ export const Postings = ({ apiURL }) => {
                             required
                         />
 
+                        {/* employer_id */}
+                        <label htmlFor="employer_id" className="required">employer_id</label>
+                        <select
+                            name="employer_id"
+                            id="employer_id"
+                            value={formState?.employer_id ?? ''}
+                            onChange={(e) => updateDropdown(e, setFormState)}
+                            aria-required="true"
+                            required
+                        >
+                            <option
+                                value=""
+                                key="employer-id-default-non-select"
+                                disabled={true}
+                            >
+                                Select an Option
+                            </option>
+                            {employers.map(({
+                                employer_id: employerID,
+                                name: name,
+                                location,
+                            }, index) => (
+                                <option value={employerID} key={index.toString()}>
+                                    {`${name} (${location})`}
+                                </option>
+                            )
+                            )}
+                        </select>
+
                         {/* description */}
                         <label htmlFor="description" className="required">description</label>
                         <input
@@ -213,18 +256,6 @@ export const Postings = ({ apiURL }) => {
                             name="description"
                             id="description"
                             value={formState?.description ?? ''}
-                            onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
-                            required
-                        />
-
-                        {/* employer_id */}
-                        <label htmlFor="employer_id" className="required">employer_id</label>
-                        <input
-                            type="text"
-                            name="employer_id"
-                            id="employer_id"
-                            value={formState?.employer_id ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
                             aria-required="true"
                             required
