@@ -191,8 +191,8 @@ export const Postings = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Edit Posting</legend>
-                        <br />
-                        <span>Posting Id: {formState.posting_id}</span>
+
+                        <span>posting_id: {formState.posting_id}</span>
                         <br />
                         {/* <position */}
                         <label htmlFor="position" className="required">position</label>
@@ -246,11 +246,11 @@ export const Postings = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Delete Posting</legend>
-                        <span>Posting Id: {formState.posting_id}</span>
+                        <span>posting_id: {formState.posting_id}</span>
                         <br />
-                        <span>Position: {formState.position}</span>
+                        <span>position: {formState.position}</span>
                         <br />
-                        <span>Description: {formState?.description ?? ''}</span>
+                        <span>description: {formState?.description ?? ''}</span>
                         <br />
                         <span>employer_id: {formState?.employer_id ?? ''}</span>
                         <br />

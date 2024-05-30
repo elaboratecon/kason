@@ -53,3 +53,14 @@ export const updateField = (e, setState) => {
         [name]: value,
     }))
 }
+
+export const updateDropdown = (e, setState) => {
+    const { target } = e
+    const { name, value } = target
+    const valueInt = Number(value)
+
+    setState((prevState) => ({
+        ...prevState,
+        [name]: valueInt,
+    }))
+}
