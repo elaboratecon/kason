@@ -8,12 +8,13 @@ const router = express.Router()
 const {
     getCandidatesForPostings,
     createCandidatesForPosting,
+    updateCandidatesForPostings,
 } = require('../controllers/candidatesForPostingsController')
 
 router.get('/', getCandidatesForPostings)
 // router.get('/:id', getCandidatesForPostingByID)
 router.post('/', createCandidatesForPosting)
-// router.put('/:id', updateCandidatesForPosting)
+router.put('/:id', updateCandidatesForPostings)
 // router.delete('/:id', deleteCandidatesForPosting)
 
 module.exports = router

@@ -13,7 +13,7 @@ const lodash = require('lodash')
 const getCandidatesForPostings = async (req, res) => {
     try {
         // Select all rows from the "CandidatesForPostings" table
-        const query1 = 'SELECT candidate_for_posting_id, Postings.position AS posting_position, CONCAT(Candidates.first_name, " ", Candidates.last_name) AS candidate_full_name FROM CandidatesForPostings INNER JOIN Postings ON Postings.posting_id = CandidatesForPostings.posting_id INNER JOIN Candidates ON Candidates.candidate_id = CandidatesForPostings.candidate_id;'
+        const query1 = 'SELECT candidate_for_posting_id, CandidatesForPostings.posting_id, CandidatesForPostings.candidate_id, Postings.position AS posting_position, CONCAT(Candidates.first_name, " ", Candidates.last_name) AS candidate_full_name FROM CandidatesForPostings INNER JOIN Postings ON Postings.posting_id = CandidatesForPostings.posting_id INNER JOIN Candidates ON Candidates.candidate_id = CandidatesForPostings.candidate_id;'
 
         // Select posting_id and posting_position from "POSTINGS" table
         const query2 = 'SELECT posting_id, position, Employers.name AS employer_name, Employers.location AS employer_location FROM Postings INNER JOIN Employers ON Employers.employer_id = Postings.employer_id;'
@@ -40,8 +40,8 @@ const getCandidatesForPostings = async (req, res) => {
     }
 }
 
-// Creates a new CandidatesForPosting entry
-const createCandidatesForPosting = async(req, res) => {
+// Creates a new CandidatesForPostings entry
+const createCandidatesForPosting = async (req, res) => {
     try {
         const { body } = req
         const { posting_id, candidate_id } = body
@@ -62,8 +62,47 @@ const createCandidatesForPosting = async(req, res) => {
     }
 }
 
+// Updates a CandidatesForPostings entry
+const updateCandidatesForPostings = async (req, res) => {
+    const { params, body: newEntry } = req
+    const { id: candidate_for_posting_id } = params
+    const { posting_id, candidate_id } = newEntry
+
+    try {
+        const [data] = await db.query('SELECT * FROM CandidatesForPostings WHERE candidate_for_posting_id = ?', [
+            candidate_for_posting_id,
+        ])
+        const oldEntry = data[0]
+
+        if (!lodash.isEqual(newEntry, oldEntry)) {
+            // console.log("NewEntry: ", newEntry)
+            const query = 'UPDATE CandidatesForPostings SET posting_id=?, candidate_id=? WHERE candidate_for_posting_id=?'
+            const values = [
+                posting_id,
+                candidate_id,
+                candidate_for_posting_id,
+            ]
+
+            // Perform the update
+            await db.query(query, values)
+
+            // Inform client of success and return 
+            return res
+                .json({ message: 'Entry updated successfully.'})
+        }
+        // entries are the same
+        res.json({ message: 'Details are the same as an existing entry. No update.'})
+    } catch (error) {
+        console.log('Error updating CandidatesForPostings', error)
+        res
+            .status(500)
+            .json({ error: `Error updating the entry with ID ${candidate_for_posting_id}`})
+    }
+}
+
 // Export the functions as methods of an object
 module.exports = {
     getCandidatesForPostings,
     createCandidatesForPosting,
+    updateCandidatesForPostings,
 }
