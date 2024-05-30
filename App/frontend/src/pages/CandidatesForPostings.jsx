@@ -40,6 +40,16 @@ export const CandidatesForPostings = ({ apiURL }) => {
         setFormState({})
     }
 
+    function toggleEdit() {
+        setIsOpenEditModal(!isOpenEditModal)
+        setFormState({})
+    }
+
+    function triggerEditModalById(rowData) {
+        setFormState(rowData)
+        setIsOpenEditModal(!isOpenEditModal)
+    }
+
     // modify database functions
     function addCandidateForPosting() {
         setIsWriting(true)
@@ -54,15 +64,28 @@ export const CandidatesForPostings = ({ apiURL }) => {
         })
     }
 
+    function editCandidateForPosting() {
+        setIsWriting(true)
+        writeToAPI({
+            apiURL: `${apiURL}${formState.candidate_for_posting_id}`,
+            method: 'PUT',
+            data: formState,
+        }).then((res) => {
+            setIsWriting(false)
+            fetchCandidatesForPostings()
+            toggleEdit()
+        })
+    }
+
 
     useEffect(() => {
         fetchCandidatesForPostings()
     }, [])
 
     // FOR TESTING PURPOSES ONLY
-    // useEffect(() => {
-    //     console.log(formState)
-    // }, [formState])
+    useEffect(() => {
+        console.log(formState)
+    }, [formState])
 
     return (
         <>
@@ -142,6 +165,84 @@ export const CandidatesForPostings = ({ apiURL }) => {
                 </form>
             </Modal>
 
+            {/* Modal: Edit */}
+            <Modal
+                modalSettings={{
+                    isOpen: isOpenEditModal,
+                    toggle: toggleEdit,
+                }}
+                headerLabel="Edit CandidateForPosting"
+                buttonLabel="Edit CandidateForPosting"
+                onClick={editCandidateForPosting}
+            >
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <fieldset>
+                        <legend className="visually-hidden">Edit CandidateForPosting</legend>
+
+                        {/* candidate_for_posting_id */}
+                        <span>candidate_for_posting_id: {formState.candidate_for_posting_id}</span>
+                        <br />
+
+                        {/* posting_id */}
+                        <label htmlFor="posting_id" className="required">posting_position</label>
+                        <select
+                            name="posting_id"
+                            id="posting_id"
+                            value={formState?.posting_id ?? ''}
+                            onChange={(e) => updateDropdown(e, setFormState)}
+                            aria-required="true"
+                            required
+                        >
+                            <option
+                                value=""
+                                key="posting-id-default-non-select"
+                                disabled={true}
+                            >
+                                Select an Option
+                            </option>
+                            {postingsPositions.map(({
+                                posting_id: postingID,
+                                position,
+                                employer_name: employerName,
+                                employer_location: employerLocation,
+                            }, index) => (
+                                <option value={postingID} key={index.toString()}>
+                                    {`${position}, ${employerName} (${employerLocation})`}
+                                </option>
+                            )
+                            )}
+                        </select>
+
+                        {/* candidate_id */}
+                        <label htmlFor="candidate_id" className="required">candidate_full_name</label>
+                        <select
+                            name="candidate_id"
+                            id="candidate_id"
+                            value={formState?.candidate_id ?? ''}
+                            onChange={(e) => updateDropdown(e, setFormState)}
+                            aria-required="true"
+                            required
+                        >
+                            <option
+                                value=""
+                                key="candidate-id-default-non-select"
+                                disabled={true}
+                            >
+                                Select an Option
+                            </option>
+                            {candidatesFullNames.map(({
+                                candidate_id: candidateID,
+                                candidate_full_name: candidateFullName,
+                            }, index) => (
+                                <option value={candidateID} key={index.toString()}>
+                                    {candidateFullName}
+                                </option>
+                            ))}
+                        </select>
+                    </fieldset>
+                </form>
+            </Modal>
+
             <section id="browseCandidatesForPostings">
                 <h2>Browse CandidatesForPostings</h2>
                 <table className="table table-light table-bordered table-hover">
@@ -158,7 +259,11 @@ export const CandidatesForPostings = ({ apiURL }) => {
                     </thead>
                     <tbody>
                         {candidatesForPostings.map((posting, index) => (
-                            <TableRow data={posting} key={index.toString()} />
+                            <TableRow
+                                data={posting} 
+                                triggerEditModalById={triggerEditModalById}
+                                key={index.toString()}
+                            />
                         ))}
                     </tbody>
                 </table>
@@ -167,7 +272,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
     )
 }
 
-const TableRow = ({ data }) => {
+const TableRow = ({ data, triggerEditModalById }) => {
     const {
         candidate_for_posting_id: candidateForPostingID,
         posting_position: postingPosition,
@@ -177,7 +282,7 @@ const TableRow = ({ data }) => {
     return (
         <tr>
             <td className="text-center">
-                <a href="#" className="text-center" onClick={() => console.log('editCandidateForPosting')}>Edit</a>
+                <a href="#" className="text-center" onClick={() => triggerEditModalById(data)}>Edit</a>
             </td>
             <td className="text-center">
                 <a href="#" className="text-center" onClick={() => console.log('deleteCandidateForPosting')}>Delete</a>

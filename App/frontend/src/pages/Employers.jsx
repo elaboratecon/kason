@@ -177,8 +177,8 @@ export const Employers = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Edit Employer</legend>
-                        <br />
-                        <span>Employer Id: {formState.employer_id}</span>
+                        
+                        <span>employer_id: {formState.employer_id}</span>
                         <br />
                         {/* <name */}
                         <label htmlFor="name" className="required">name</label>
@@ -220,11 +220,12 @@ export const Employers = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Delete Employer</legend>
-                        <span>Employer Id: {formState.employer_id}</span>
+
+                        <span>employer_id: {formState.employer_id}</span>
                         <br />
-                        <span>Employer Name: {formState.name}</span>
+                        <span>name: {formState.name}</span>
                         <br />
-                        <span>Employer Location: {formState?.location ?? ''}</span>
+                        <span>location: {formState?.location ?? ''}</span>
                         <br />
                     </fieldset>
                 </form>

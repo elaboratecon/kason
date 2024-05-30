@@ -204,8 +204,9 @@ export const Candidates = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Edit Candidate</legend>
-                        <br />
-                        <span>Candidate Id: {formState.candidate_id}</span>
+
+                        {/* candidate_id */}
+                        <span>candidate_id: {formState.candidate_id}</span>
                         <br />
                         {/* <first_name */}
                         <label htmlFor="first_name" className="required">first name</label>
