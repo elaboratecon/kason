@@ -24,20 +24,20 @@ export const Modal = (props) => {
             backdrop={true}
             size="lg"
             {...modalSettings}
-            style={{ maxWidth: '500px', ...style}}
+            style={{ maxWidth: '500px', ...style }}
         >
-            <ModalHeader toggle={toggle}>{headerLabel}</ModalHeader>
-            <ModalBody>
-                {children}
-            </ModalBody>
-            <ModalFooter>
-                <Button outline color="secondary" onClick={toggle}>
-                    Cancel
-                </Button>
-                <Button color="primary" onClick={onClick}>
-                    {buttonLabel}
-                </Button>{' '}
-            </ModalFooter>
+                <ModalHeader toggle={toggle}>{headerLabel}</ModalHeader>
+                <ModalBody>
+                    {children}
+                </ModalBody>
+                <ModalFooter>
+                    <Button outline color="secondary" onClick={toggle}>
+                        Cancel
+                    </Button>
+                    <Button color="primary" onClick={onClick}>
+                        {buttonLabel}
+                    </Button>
+                </ModalFooter>
         </ModalWrapper>
     )
 }

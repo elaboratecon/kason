@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
-import { readFromAPI, writeToAPI, updateField } from '../helperFunctions'
+import { readFromAPI, writeToAPI, updateDropdown } from '../helperFunctions'
 
 import { LoaderOverlay, Modal } from '../components/'
 
@@ -60,9 +60,9 @@ export const CandidatesForPostings = ({ apiURL }) => {
     }, [])
 
     // FOR TESTING PURPOSES ONLY
-    useEffect(() => {
-        console.log(formState)
-    }, [formState])
+    // useEffect(() => {
+    //     console.log(formState)
+    // }, [formState])
 
     return (
         <>
@@ -88,7 +88,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                             name="posting_id"
                             id="posting_id"
                             value={formState?.posting_id ?? ''}
-                            onChange={(e) => updateField(e, setFormState)}
+                            onChange={(e) => updateDropdown(e, setFormState)}
                             aria-required="true"
                             required
                         >
@@ -118,7 +118,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                             name="candidate_id"
                             id="candidate_id"
                             value={formState?.candidate_id ?? ''}
-                            onChange={(e) => updateField(e, setFormState)}
+                            onChange={(e) => updateDropdown(e, setFormState)}
                             aria-required="true"
                             required
                         >

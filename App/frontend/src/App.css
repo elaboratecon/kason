@@ -2,6 +2,12 @@
 by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
 https://github.com/osu-cs340-ecampus/react-starter-app */
 
+:root {
+    --success: #28a745;
+    --error: #dc3545;
+    --focus: #f5ca4e;
+}
+
 html {
     text-align: center;
 }
@@ -92,6 +98,18 @@ input {
 input[type=button],
 input[type=submit] {
     min-width: 0;
+}
+
+input:invalid, select:invalid, textarea:invalid {
+    border: 2px solid var(--error);
+}
+
+input:valid, select:valid, textarea:valid {
+    border: 2px solid var(--success);
+}
+
+input:focus, textarea:focus, select:focus {
+    background-color: var(--focus);
 }
 
 .loader {
