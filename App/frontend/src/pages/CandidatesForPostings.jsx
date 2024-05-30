@@ -45,9 +45,19 @@ export const CandidatesForPostings = ({ apiURL }) => {
         setFormState({})
     }
 
+    function toggleDelete() {
+        setIsOpenDeleteModal(!isOpenDeleteModal)
+        setFormState({})
+    }
+
     function triggerEditModalById(rowData) {
         setFormState(rowData)
         setIsOpenEditModal(!isOpenEditModal)
+    }
+
+    function triggerDeleteModalById(rowData) {
+        setFormState(rowData)
+        setIsOpenDeleteModal(!isOpenDeleteModal)
     }
 
     // modify database functions
@@ -77,15 +87,26 @@ export const CandidatesForPostings = ({ apiURL }) => {
         })
     }
 
+    function deleteCandidateForPosting() {
+        setIsWriting(true)
+        writeToAPI({
+            apiURL: `${apiURL}${formState.candidate_for_posting_id}`,
+            method: 'DELETE',
+        }).then((res) => {
+            setIsWriting(false)
+            fetchCandidatesForPostings()
+            toggleDelete()
+        })
+    }
 
     useEffect(() => {
         fetchCandidatesForPostings()
     }, [])
 
     // FOR TESTING PURPOSES ONLY
-    useEffect(() => {
-        console.log(formState)
-    }, [formState])
+    // useEffect(() => {
+    //     console.log(formState)
+    // }, [formState])
 
     return (
         <>
@@ -101,7 +122,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                 buttonLabel="Add CandidateForPosting"
                 onClick={addCandidateForPosting}
             >
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form>
                     <fieldset>
                         <legend className="visually-hidden">Add CandidateForPosting</legend>
 
@@ -175,7 +196,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                 buttonLabel="Edit CandidateForPosting"
                 onClick={editCandidateForPosting}
             >
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form>
                     <fieldset>
                         <legend className="visually-hidden">Edit CandidateForPosting</legend>
 
@@ -243,6 +264,35 @@ export const CandidatesForPostings = ({ apiURL }) => {
                 </form>
             </Modal>
 
+            {/* Modal: Delete */}
+            <Modal
+                modalSettings={{
+                    isOpen: isOpenDeleteModal,
+                    toggle: toggleDelete,
+                }}
+                headerLabel="Delete CandidateForPosting"
+                buttonLabel="Delete CandidateForPosting"
+                onClick={deleteCandidateForPosting}
+            >
+                <form>
+                    <fieldset>
+                        <legend className="visually-hidden">Delete CandidateForPosting</legend>
+
+                        {/* candidate_for_posting_id */}
+                        <span>candidate_for_posting_id: {formState.candidate_for_posting_id}</span>
+                        <br />
+
+                        {/* posting_id */}
+                        <span>posting_position: {formState.posting_position}</span>
+                        <br />
+
+                        {/* candidate_id */}
+                        <span>candidate_full_name: {formState.candidate_full_name}</span>
+                        <br />
+                    </fieldset>
+                </form>
+            </Modal>
+
             <section id="browseCandidatesForPostings">
                 <h2>Browse CandidatesForPostings</h2>
                 <table className="table table-light table-bordered table-hover">
@@ -262,6 +312,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                             <TableRow
                                 data={posting} 
                                 triggerEditModalById={triggerEditModalById}
+                                triggerDeleteModalById={triggerDeleteModalById}
                                 key={index.toString()}
                             />
                         ))}
@@ -272,7 +323,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
     )
 }
 
-const TableRow = ({ data, triggerEditModalById }) => {
+const TableRow = ({ data, triggerEditModalById, triggerDeleteModalById }) => {
     const {
         candidate_for_posting_id: candidateForPostingID,
         posting_position: postingPosition,
@@ -285,7 +336,7 @@ const TableRow = ({ data, triggerEditModalById }) => {
                 <a href="#" className="text-center" onClick={() => triggerEditModalById(data)}>Edit</a>
             </td>
             <td className="text-center">
-                <a href="#" className="text-center" onClick={() => console.log('deleteCandidateForPosting')}>Delete</a>
+                <a href="#" className="text-center" onClick={() => triggerDeleteModalById(data)}>Delete</a>
             </td>
             <td className="text-center">{candidateForPostingID}</td>
             <td>{postingPosition}</td>
