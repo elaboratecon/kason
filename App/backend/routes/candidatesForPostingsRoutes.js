@@ -9,12 +9,13 @@ const {
     getCandidatesForPostings,
     createCandidatesForPosting,
     updateCandidatesForPostings,
+    deleteCandidatesForPosting,
 } = require('../controllers/candidatesForPostingsController')
 
 router.get('/', getCandidatesForPostings)
 // router.get('/:id', getCandidatesForPostingByID)
 router.post('/', createCandidatesForPosting)
 router.put('/:id', updateCandidatesForPostings)
-// router.delete('/:id', deleteCandidatesForPosting)
+router.delete('/:id', deleteCandidatesForPosting)
 
 module.exports = router

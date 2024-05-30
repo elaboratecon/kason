@@ -100,9 +100,50 @@ const updateCandidatesForPostings = async (req, res) => {
     }
 }
 
+const deleteCandidatesForPosting = async (req, res) => {
+    const { params, body } = req
+    const { id: candidate_for_posting_id } = params
+
+    try {
+        // Ensure the entry exists
+        const [isExisting] = await db.query(
+            'SELECT 1 FROM CandidatesForPostings WHERE candidate_for_posting_id = ?',
+            [candidate_for_posting_id]
+        )
+
+        // If the entry doesn't exist, return an error
+        if (isExisting.length === 0) {
+            return res.status(404).send('Entry not found')
+        }
+
+        const [response] = await db.query(
+            'DELETE FROM CandidatesForPostings WHERE candidate_for_posting_id = ?',
+            [candidate_for_posting_id]
+        )
+
+        console.log(
+            'Deleted',
+            response.affectedRows,
+            'rows from CandidatesForPostings table'
+        )
+
+        // Return the appropriate status code
+        res
+            .status(204)
+            .json({ message: 'Employer deleted successfully' })
+            // 204 must not have a body, it will ignore the attached .json(...)
+    } catch (error) {
+        console.error('Error deleting entry from the database:', error)
+        res
+            .status(500)
+            .json({ error: error.message })
+    }
+}
+
 // Export the functions as methods of an object
 module.exports = {
     getCandidatesForPostings,
     createCandidatesForPosting,
     updateCandidatesForPostings,
+    deleteCandidatesForPosting,
 }
