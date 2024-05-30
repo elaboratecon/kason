@@ -13,14 +13,22 @@ const lodash = require('lodash')
 const getPostings = async (req, res) => {
     try {
         // Select all rows from the "Postings" table
-        const query = 'SELECT posting_id, position, description, Employers.name AS employer_name, Employers.location AS employer_location FROM Postings INNER JOIN Employers ON Employers.employer_id = Postings.employer_id;'
+        const query1 = 'SELECT posting_id, position, description, Postings.employer_id, Employers.name AS employer_name, Employers.location AS employer_location FROM Postings INNER JOIN Employers ON Employers.employer_id = Postings.employer_id;'
+
+        // Select employer info for dropdowns
+        const query2 = 'SELECT * FROM Employers;'
 
         // Execute the query using the "db" object from the configuration file
-        const [rows] = await db.query(query)
+        const [resp1] = await db.query(query1)
+        const [resp2] = await db.query(query2)
+
         // Send back the rows to the client
         res
             .status(200)
-            .json(rows)
+            .json({
+                postings: resp1,
+                employers: resp2,
+            })
     } catch (error) {
         console.error('Error fetching postings from the database:', error)
         res.status(500).json({ error: 'Error fetching postings' })
@@ -82,14 +90,9 @@ const createPosting = async (req, res) => {
 
 const updatePosting = async (req, res) => {
     const { params, body } = req
-    const { id } = params
-    const { position } = body
+    const { id: postingID } = params
+    const { position, employer_id: employerID } = body
     let { description } = body
-    const { employer_id } = body
-
-
-    // Get the posting ID
-    const postingID = id
     
     // Get the posting object
     const newPosting = body
@@ -105,7 +108,7 @@ const updatePosting = async (req, res) => {
         if (!lodash.isEqual(newPosting, oldPosting)) {
             console.log("NewPosting: ", newPosting)
             const query =
-                'UPDATE Postings SET position = ?, description = ?, employer_id = (SELECT employer_id FROM Employers WHERE employer_id = ?) WHERE posting_id = ?;'
+                'UPDATE Postings SET position=?, description=?, employer_id=? WHERE posting_id = ?;'
 
             console.log("Update Query: ", query)
             // Recheck line below and comments later
@@ -116,7 +119,7 @@ const updatePosting = async (req, res) => {
             const values = [
                 position,
                 description,
-                employer_id,
+                employerID,
                 postingID,
             ]
             console.log("valuesArr: ", values)
