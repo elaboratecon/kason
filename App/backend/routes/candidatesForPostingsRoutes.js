@@ -7,11 +7,12 @@ const router = express.Router()
 
 const {
     getCandidatesForPostings,
+    createCandidatesForPosting,
 } = require('../controllers/candidatesForPostingsController')
 
 router.get('/', getCandidatesForPostings)
 // router.get('/:id', getCandidatesForPostingByID)
-// router.post('/', createCandidatesForPosting)
+router.post('/', createCandidatesForPosting)
 // router.put('/:id', updateCandidatesForPosting)
 // router.delete('/:id', deleteCandidatesForPosting)
 
