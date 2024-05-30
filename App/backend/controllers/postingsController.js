@@ -18,7 +18,9 @@ const getPostings = async (req, res) => {
         // Execute the query using the "db" object from the configuration file
         const [rows] = await db.query(query)
         // Send back the rows to the client
-        res.status(200).json(rows)
+        res
+            .status(200)
+            .json(rows)
     } catch (error) {
         console.error('Error fetching postings from the database:', error)
         res.status(500).json({ error: 'Error fetching postings' })

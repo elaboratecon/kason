@@ -7,12 +7,15 @@ const router = express.Router()
 
 const {
     getCandidatesForPostings,
+    createCandidatesForPosting,
+    updateCandidatesForPostings,
+    deleteCandidatesForPosting,
 } = require('../controllers/candidatesForPostingsController')
 
 router.get('/', getCandidatesForPostings)
 // router.get('/:id', getCandidatesForPostingByID)
-// router.post('/', createCandidatesForPosting)
-// router.put('/:id', updateCandidatesForPosting)
-// router.delete('/:id', deleteCandidatesForPosting)
+router.post('/', createCandidatesForPosting)
+router.put('/:id', updateCandidatesForPostings)
+router.delete('/:id', deleteCandidatesForPosting)
 
 module.exports = router
