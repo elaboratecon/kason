@@ -295,7 +295,7 @@ export const Candidates = ({ apiURL }) => {
                             <th className="text-center">
                                 <a href="#" onClick={() => setIsOpenAddModal(true)}>New</a>
                             </th>
-                            <th>delete</th>
+                            <th className="text-center">Delete</th>
                             <th className="text-center">candidate_id</th>
                             <th>first_name</th>
                             <th>last_name</th>

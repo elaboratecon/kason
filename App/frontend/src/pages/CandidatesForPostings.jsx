@@ -301,7 +301,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                             <th className="text-center">
                                 <a href="#" onClick={() => toggleAdd()}>New</a>
                             </th>
-                            <th></th>
+                            <th className="text-center"> Delete </th>
                             <th className="text-center">candidate_for_posting_id</th>
                             <th>posting_position</th>
                             <th>candidate_full_name</th>
