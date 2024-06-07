@@ -295,6 +295,9 @@ export const CandidatesForPostings = ({ apiURL }) => {
 
             <section id="browseCandidatesForPostings">
                 <h2>Browse CandidatesForPostings</h2>
+                <p>The intersection table linking Candidates and Postings. See which Candidates applied for which Job Postings. <br />
+                You can also create a new application, as well as edit or delete an existing application. <br />
+                An application will be deleted if the Posting or Candidate it is linked to is deleted.</p>
                 <table className="table table-light table-bordered table-hover">
                     <thead className="table-secondary">
                         <tr>

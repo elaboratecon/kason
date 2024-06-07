@@ -22,19 +22,19 @@ export const EmploymentHistories = ({ apiURL }) => {
 
     return (
         <>
-            <div style={{marginBottom: '1rem'}}>
-                <a href="#" onClick={() => console.log('showAllForms')}>Show All Forms</a>
-            </div>
-
             <section id="browseEmploymentHistories">
                 <h2>Browse EmploymentHistories</h2>
+                <p> Browse Employement Histories. See which Candidate worked at which Employer, when they began and ended their position <br />
+                — or whether they're still in that role. Employers can be from our database, or entered manually with a null foreign key. <br /><br />
+                You can create new Employment History items, as well as edit or delete existing ones. <br />
+                Each Employment History must be linked to a candidate - keep in mind deleting that candidate will delete it.</p>
                 <table className="table table-light table-bordered table-hover">
                     <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
-                                <a href="#" onClick={() => console.log('addNewEmploymentHistory')}>New</a>
+                                <a href="#" onClick={() => console.log('addNewEmploymentHistory')}><b>NEW</b></a>
                             </th>
-                            <th></th>
+                            <th className="text-center">Delete</th>
                             <th className="text-center">employment_history_id</th>
                             <th>candidate_full_name</th>
                             <th>position</th>
