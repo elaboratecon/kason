@@ -292,11 +292,12 @@ export const Postings = ({ apiURL }) => {
 
             <section id="browsePostings">
                 <h2>Browse Postings</h2>
+                <p>Browse Job Postings, create new ones, and edit existing ones. Each Posting must be linked to an Employer <br />in our database - keep in mind deleting an Employer will delete all of their Postings.</p>
                 <table className="table table-light table-bordered table-hover">
                     <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
-                                <a href="#" onClick={() => setIsOpenAddModal(true)}>New</a>
+                                <a href="#" onClick={() => setIsOpenAddModal(true)}><b>NEW</b></a>
                             </th>
                             <th className="text-center">Delete</th>
                             <th className="text-center">posting_id</th>

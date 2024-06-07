@@ -289,11 +289,12 @@ export const Candidates = ({ apiURL }) => {
 
             <section id="browseCandidates">
                 <h2>Browse Candidates</h2>
+                <p>Browse Candidates, create new ones, and edit existing ones.</p>
                 <table className="table table-light table-bordered table-hover">
                     <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
-                                <a href="#" onClick={() => setIsOpenAddModal(true)}>New</a>
+                                <a href="#" onClick={() => setIsOpenAddModal(true)}><b>NEW</b></a>
                             </th>
                             <th className="text-center">Delete</th>
                             <th className="text-center">candidate_id</th>
