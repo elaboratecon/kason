@@ -205,11 +205,12 @@ export const Postings = ({ apiURL }) => {
                         <legend className="visually-hidden">Edit Posting</legend>
 
                         {/* posting_id */}
-                        <span>posting_id: {formState.posting_id}</span>
+                        <span><b>Posting ID: </b>{formState.posting_id}</span>
+                        <br />
                         <br />
 
                         {/* <position */}
-                        <label htmlFor="position" className="required">position</label>
+                        <label htmlFor="position" className="required"><b>Position</b></label>
                         <input
                             type="text"
                             name="position"
@@ -221,7 +222,7 @@ export const Postings = ({ apiURL }) => {
                         />
 
                         {/* employer_id */}
-                        <label htmlFor="employer_id" className="required">employer_id</label>
+                        <label htmlFor="employer_id" className="required"><b>Employer</b></label>
                         <select
                             name="employer_id"
                             id="employer_id"
@@ -250,7 +251,7 @@ export const Postings = ({ apiURL }) => {
                         </select>
 
                         {/* description */}
-                        <label htmlFor="description" className="required">description</label>
+                        <label htmlFor="description" className="required"><b>Description</b></label>
                         <input
                             type="text"
                             name="description"
@@ -277,13 +278,13 @@ export const Postings = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Delete Posting</legend>
-                        <span>posting_id: {formState.posting_id}</span>
+                        <span><b>Posting ID: </b>{formState.posting_id}</span>
                         <br />
-                        <span>position: {formState.position}</span>
+                        <span><b>Position: </b>{formState.position}</span>
                         <br />
-                        <span>description: {formState?.description ?? ''}</span>
+                        <span><b>Description: </b>{formState?.description ?? ''}</span>
                         <br />
-                        <span>employer_id: {formState?.employer_id ?? ''}</span>
+                        <span><b>Employer: </b>{formState?.employer_name ?? ''}</span>
                         <br />
                     </fieldset>
                 </form>
