@@ -102,6 +102,7 @@ const updateCandidatesForPostings = async (req, res) => {
 
 const deleteCandidatesForPosting = async (req, res) => {
     const { params, body } = req
+    // ? Are we passing a body when we call this?
     const { id: candidate_for_posting_id } = params
 
     try {

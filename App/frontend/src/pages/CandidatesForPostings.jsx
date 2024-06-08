@@ -11,13 +11,15 @@ import { LoaderOverlay, Modal } from '../components/'
 
 export const CandidatesForPostings = ({ apiURL }) => {
     const [candidatesForPostings, setCandidatesForPostings] = useState([])
-    const [postingsPositions, setPostingsPositions] = useState([])
-    const [candidatesFullNames, setCandidatesFullNames] = useState([])
     const [isWriting, setIsWriting] = useState(false)
     const [formState, setFormState] = useState({})
     const [isOpenAddModal, setIsOpenAddModal] = useState(false)
     const [isOpenEditModal, setIsOpenEditModal] = useState(false)
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
+
+    // For dropdown selection in Add/Edit
+    const [postingsPositions, setPostingsPositions] = useState([])
+    const [candidatesFullNames, setCandidatesFullNames] = useState([])
 
     // default data call
     function fetchCandidatesForPostings() {
@@ -283,6 +285,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                         <br />
 
                         {/* posting_id */}
+                        {/* Why does this work?? We never assigned posting_position to formState, we assigned posting_id?}
                         <span>posting_position: {formState.posting_position}</span>
                         <br />
 
@@ -296,13 +299,13 @@ export const CandidatesForPostings = ({ apiURL }) => {
             <section id="browseCandidatesForPostings">
                 <h2>Browse CandidatesForPostings</h2>
                 <p>The intersection table linking Candidates and Postings. See which Candidates applied for which Job Postings. <br />
-                You can also create a new application, as well as edit or delete an existing application. <br />
+                You can also create a new application, as well as edit or delete an existing application. <br /><br />
                 An application will be deleted if the Posting or Candidate it is linked to is deleted.</p>
                 <table className="table table-light table-bordered table-hover">
                     <thead className="table-secondary">
                         <tr>
                             <th className="text-center">
-                                <a href="#" onClick={() => toggleAdd()}>New</a>
+                                <a href="#" onClick={() => toggleAdd()}><b>NEW</b></a>
                             </th>
                             <th className="text-center"> Delete </th>
                             <th className="text-center">candidate_for_posting_id</th>
@@ -314,8 +317,8 @@ export const CandidatesForPostings = ({ apiURL }) => {
                         {candidatesForPostings.map((posting, index) => (
                             <TableRow
                                 data={posting} 
-                                triggerEditModalById={triggerEditModalById}
-                                triggerDeleteModalById={triggerDeleteModalById}
+                                triggerEditModalById={triggerEditModalById} 
+                                triggerDeleteModalById={triggerDeleteModalById} 
                                 key={index.toString()}
                             />
                         ))}
