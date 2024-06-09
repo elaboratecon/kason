@@ -61,7 +61,7 @@ export const updateField = (e, setState) => {
 export const updateDropdown = (e, setState) => {
     const { target } = e
     const { name, value } = target
-    const valueInt = Number(value)
+    const valueInt = value === 'null' ? null : Number(value)
 
     setState((prevState) => ({
         ...prevState,

@@ -63,6 +63,15 @@ export const EmploymentHistories = ({ apiURL }) => {
     // modify database functions
     function addEmploymentHistory() {
         setIsWriting(true)
+        // PREFLIGHT: Preparing data object to null-out employer_name if user changed mind and selected an existing employer_id
+        if (formState.employerID !== null) {
+            setFormState((prevState) => {
+                return {
+                    ...prevState,
+                    employer_name: null
+                }
+            })
+        }
         writeToAPI({
             apiURL,
             method: 'POST',
@@ -76,6 +85,15 @@ export const EmploymentHistories = ({ apiURL }) => {
 
     function editEmploymentHistory() {
         setIsWriting(true)
+        // PREFLIGHT: Preparing data object to null-out employer_name if user changed mind and selected an existing employer_id
+        if (formState.employerID !== null) {
+            setFormState((prevState) => {
+                return {
+                    ...prevState,
+                    employer_name: null
+                }
+            })
+        }
         writeToAPI({
             apiURL: `${apiURL}${formState.employment_history_id}`,
             method: 'PUT',
@@ -127,7 +145,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         <legend className="visually-hidden">Add Employment History</legend>
 
                         {/* position */}
-                        <label htmlFor="position" className="required">Position</label>
+                        <label htmlFor="position" className="required">position</label>
                         <input
                             type="text"
                             name="position"
@@ -139,7 +157,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* start_date */}
-                        <label htmlFor="start_date" className="required">Start Date</label>
+                        <label htmlFor="start_date" className="required">start_date</label>
                         <input
                             type="date"
                             name="start_date"
@@ -151,7 +169,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* end_date */}
-                        <label htmlFor="end_date">End Date</label>
+                        <label htmlFor="end_date">end_date</label>
                         <input
                             type="date"
                             name="end_date"
@@ -161,23 +179,12 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* currently_employed */}
-                        <label htmlFor="currently_employed" className="required">Currently Employed?</label>
-                        <input
-                            type="text"
+                        <label htmlFor="currently_employed" className="required">currently_employed</label>
+                        <p>Are you still currently employed with this Employer?</p>
+                        <select
                             name="currently_employed"
                             id="currently_employed"
                             value={formState?.currently_employed ?? ''}
-                            onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
-                            required
-                        />
-
-                        {/* employer_id */}
-                        <label htmlFor="employer_id" className="required">Employer in Database</label>
-                        <select
-                            name="employer_id"
-                            id="employer_id"
-                            value={formState?.employer_id ?? ''}
                             onChange={(e) => updateDropdown(e, setFormState)}
                             aria-required="true"
                             required
@@ -188,6 +195,47 @@ export const EmploymentHistories = ({ apiURL }) => {
                                 disabled={true}
                             >
                                 Select an Option
+                            </option>
+                            {[
+                                {
+                                    value: 1,
+                                    label: 'Yes',
+                                },
+                                {
+                                    value: 0,
+                                    label: 'No',
+                                }
+                            ].map(({
+                                value,
+                                label,
+                            }, index) => (
+                                <option value={value} key={index.toString()}>
+                                    {label}
+                                </option>
+                            )
+                            )}
+                        </select>
+
+                        {/* employer_id */}
+                        <label htmlFor="employer_id" className="required">employer_id</label>
+                        <p>First, see if you can find the Employer in the list. If you can't, select "Employer Not Listed (null)" and you will be asked to enter the Employer Name manually.</p>
+                        <select
+                            name="employer_id"
+                            id="employer_id"
+                            value={(formState.employer_id === null ? 'null' : formState.employer_id) ?? ''}
+                            onChange={(e) => updateDropdown(e, setFormState)}
+                            aria-required="true"
+                            required
+                        >
+                            <option
+                                value=""
+                                key="employer-id-default-non-select"
+                                disabled={true}
+                            >
+                                Select an Option
+                            </option>
+                            <option value="null" key="add_candidate_id_null_value">
+                                {`Employer Not Listed (null)`}
                             </option>
                             {employersEmployers.map(({
                                 employer_id: employerID,
@@ -201,8 +249,25 @@ export const EmploymentHistories = ({ apiURL }) => {
                             )}
                         </select>
 
+                        {/* employer_name */}
+                        {formState.employer_id === null && (
+                            <>
+                                <label htmlFor="employer_name" className="required">employer_name</label>
+                                <p>Please enter the Employer Name manually.</p>
+                                <input
+                                    type="text"
+                                    name="employer_name"
+                                    id="employer_name"
+                                    value={formState?.employer_name ?? ''}
+                                    onChange={(e) => updateField(e, setFormState)}
+                                    aria-required="true"
+                                    required
+                                />
+                            </>
+                        )}
+
                         {/* candidate_id */}
-                        <label htmlFor="candidate_id" className="required">candidate_full_name</label>
+                        <label htmlFor="candidate_id" className="required">candidate_id</label>
                         <select
                             name="candidate_id"
                             id="candidate_id"
@@ -250,7 +315,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         <br />
 
                         {/* position */}
-                        <label htmlFor="position" className="required">Position</label>
+                        <label htmlFor="position" className="required">position</label>
                         <input
                             type="text"
                             name="position"
@@ -262,7 +327,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* start_date */}
-                        <label htmlFor="start_date" className="required">Start Date</label>
+                        <label htmlFor="start_date" className="required">start_date</label>
                         <input
                             type="date"
                             name="start_date"
@@ -274,7 +339,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* end_date */}
-                        <label htmlFor="end_date">End Date</label>
+                        <label htmlFor="end_date">end_date</label>
                         <input
                             type="date"
                             name="end_date"
@@ -284,23 +349,12 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* currently_employed */}
-                        <label htmlFor="currently_employed" className="required">Currently Employed?</label>
-                        <input
-                            type="text"
+                        <label htmlFor="currently_employed" className="required">currently_employed</label>
+                        <p>Are you still currently employed with this Employer?</p>
+                        <select
                             name="currently_employed"
                             id="currently_employed"
                             value={formState?.currently_employed ?? ''}
-                            onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
-                            required
-                        />
-
-                        {/* employer_id */}
-                        <label htmlFor="employer_id" className="required">Employer in Database</label>
-                        <select
-                            name="employer_id"
-                            id="employer_id"
-                            value={formState?.employer_id ?? ''}
                             onChange={(e) => updateDropdown(e, setFormState)}
                             aria-required="true"
                             required
@@ -311,6 +365,47 @@ export const EmploymentHistories = ({ apiURL }) => {
                                 disabled={true}
                             >
                                 Select an Option
+                            </option>
+                            {[
+                                {
+                                    value: 1,
+                                    label: 'Yes',
+                                },
+                                {
+                                    value: 0,
+                                    label: 'No',
+                                }
+                            ].map(({
+                                value,
+                                label,
+                            }, index) => (
+                                <option value={value} key={index.toString()}>
+                                    {label}
+                                </option>
+                            )
+                            )}
+                        </select>
+
+                        {/* employer_id */}
+                        <label htmlFor="employer_id" className="required">employer_id</label>
+                        <p>First, see if you can find the Employer in the list. If you can't, select "Employer Not Listed (null)" and you will be asked to enter the Employer Name manually.</p>
+                        <select
+                            name="employer_id"
+                            id="employer_id"
+                            value={(formState.employer_id === null ? 'null' : formState.employer_id) ?? ''}
+                            onChange={(e) => updateDropdown(e, setFormState)}
+                            aria-required="true"
+                            required
+                        >
+                            <option
+                                value=""
+                                key="employer-id-default-non-select"
+                                disabled={true}
+                            >
+                                Select an Option
+                            </option>
+                            <option value="null" key="add_candidate_id_null_value">
+                                {`Employer Not Listed (null)`}
                             </option>
                             {employersEmployers.map(({
                                 employer_id: employerID,
@@ -324,8 +419,27 @@ export const EmploymentHistories = ({ apiURL }) => {
                             )}
                         </select>
 
+
+                        {/* employer_name */}
+                        {formState.employer_id === null && (
+                            <>
+                                <label htmlFor="employer_name" className="required">employer_name</label>
+                                <p>Please enter the Employer Name manually.</p>
+                                <input
+                                    type="text"
+                                    name="employer_name"
+                                    id="employer_name"
+                                    value={formState?.employer_name ?? ''}
+                                    onChange={(e) => updateField(e, setFormState)}
+                                    aria-required="true"
+                                    required
+                                />
+                            </>
+                        )}
+
+
                         {/* candidate_id */}
-                        <label htmlFor="candidate_id" className="required">Candidate (full name)</label>
+                        <label htmlFor="candidate_id" className="required">candidate_id</label>
                         <select
                             name="candidate_id"
                             id="candidate_id"
