@@ -43,6 +43,10 @@ export const formatDate = (unformattedDate) => (
     })
 )
 
+export const formatDateForDateInput = (date) => {
+    return date.substring(0, 10)
+}
+
 // reducer to update react state
 export const updateField = (e, setState) => {
     const { target } = e
@@ -57,7 +61,7 @@ export const updateField = (e, setState) => {
 export const updateDropdown = (e, setState) => {
     const { target } = e
     const { name, value } = target
-    const valueInt = Number(value)
+    const valueInt = value === 'null' ? null : Number(value)
 
     setState((prevState) => ({
         ...prevState,

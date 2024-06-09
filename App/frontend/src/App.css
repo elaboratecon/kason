@@ -82,8 +82,9 @@ form legend {
 }
 
 form label {
+    font-weight: bold;
     display: block;
-    margin-top: .5rem;
+    margin-top: .75rem;
 }
 
 label.required:after {
@@ -110,6 +111,10 @@ input:valid, select:valid, textarea:valid {
 
 input:focus, textarea:focus, select:focus {
     background-color: var(--focus);
+}
+
+form fieldset p {
+    margin-bottom: .5rem;
 }
 
 .loader {
