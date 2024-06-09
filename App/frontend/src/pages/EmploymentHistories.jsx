@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
-import { readFromAPI, writeToAPI, updateDropdown, updateField, formatDate } from '../helperFunctions'
+import { readFromAPI, writeToAPI, updateDropdown, updateField, formatDate, formatDateForDateInput } from '../helperFunctions'
 
 import { LoaderOverlay, Modal } from '../components/'
 
@@ -103,11 +103,16 @@ export const EmploymentHistories = ({ apiURL }) => {
         fetchEmploymentHistories()
     }, [])
 
+    // FOR TESTING PURPOSES ONLY
+    useEffect(() => {
+        console.log(formState)
+    }, [formState])
+
     return (
         <>
             <LoaderOverlay enable={isWriting} />
 
-            {/* Modal: Add New EmploymentHistories*/}
+            {/* Modal: Add New EmploymentHistories */}
             <Modal
                 modalSettings={{
                     isOpen: isOpenAddModal,
@@ -136,7 +141,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         {/* start_date */}
                         <label htmlFor="start_date" className="required">Start Date</label>
                         <input
-                            type="text"
+                            type="date"
                             name="start_date"
                             id="start_date"
                             value={formState?.start_date ?? ''}
@@ -146,15 +151,13 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* end_date */}
-                        <label htmlFor="end_date" className="required">End Date</label>
+                        <label htmlFor="end_date">End Date</label>
                         <input
-                            type="text"
+                            type="date"
                             name="end_date"
                             id="end_date"
                             value={formState?.end_date ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
-                            required
                         />
 
                         {/* currently_employed */}
@@ -261,25 +264,23 @@ export const EmploymentHistories = ({ apiURL }) => {
                         {/* start_date */}
                         <label htmlFor="start_date" className="required">Start Date</label>
                         <input
-                            type="text"
+                            type="date"
                             name="start_date"
                             id="start_date"
-                            value={formState?.start_date ?? ''}
+                            value={formatDateForDateInput(formState?.start_date ?? '')}
                             onChange={(e) => updateField(e, setFormState)}
                             aria-required="true"
                             required
                         />
 
                         {/* end_date */}
-                        <label htmlFor="end_date" className="required">End Date</label>
+                        <label htmlFor="end_date">End Date</label>
                         <input
-                            type="text"
+                            type="date"
                             name="end_date"
                             id="end_date"
-                            value={formState?.end_date ?? ''}
+                            value={formatDateForDateInput(formState?.end_date ?? '')}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
-                            required
                         />
 
                         {/* currently_employed */}

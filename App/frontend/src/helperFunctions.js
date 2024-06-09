@@ -43,6 +43,10 @@ export const formatDate = (unformattedDate) => (
     })
 )
 
+export const formatDateForDateInput = (date) => {
+    return date.substring(0, 10)
+}
+
 // reducer to update react state
 export const updateField = (e, setState) => {
     const { target } = e
