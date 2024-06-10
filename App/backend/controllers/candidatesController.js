@@ -58,8 +58,13 @@ const createCandidate = async (req, res) => {
         const { profession } = body
         let { skills } = body
 
-        // null out location if empty string is detected
-        if (skills.trim() === '') skills = null
+        // null out location if empty string or undefined is detected
+        if (skills){
+            skills.trim() === '' ? null: skills.trim()
+        } else{
+            skills = null
+        }
+
 
         const query =
             'INSERT INTO Candidates (first_name, last_name, profession, skills) VALUES (?, ?, ?, ?)'

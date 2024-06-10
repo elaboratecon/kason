@@ -145,7 +145,7 @@ export const Candidates = ({ apiURL }) => {
                         <legend className="visually-hidden">Add Candidate</legend>
 
                         {/* <first_name */}
-                        <label htmlFor="first_name" className="required">first name</label>
+                        <label htmlFor="first_name" className="required">First Name: </label>
                         <input
                             type="text"
                             name="first_name"
@@ -157,7 +157,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* <last_name */}
-                        <label htmlFor="last_name" className="required">last name</label>
+                        <label htmlFor="last_name" className="required">Last Name: </label>
                         <input
                             type="text"
                             name="last_name"
@@ -169,7 +169,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* profession */}
-                        <label htmlFor="profession" className="required">profession</label>
+                        <label htmlFor="profession" className="required">Profession: </label>
                         <input
                             type="text"
                             name="profession"
@@ -181,7 +181,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* skills */}
-                        <label htmlFor="skills" className="required">skills</label>
+                        <label htmlFor="skills" className="required">Skills: </label>
                         <input
                             type="text"
                             name="skills"
@@ -210,10 +210,10 @@ export const Candidates = ({ apiURL }) => {
                         <legend className="visually-hidden">Edit Candidate</legend>
 
                         {/* candidate_id */}
-                        <span>candidate_id: {formState.candidate_id}</span>
+                        <span>Candidate ID: {formState.candidate_id}</span>
                         <br />
                         {/* <first_name */}
-                        <label htmlFor="first_name" className="required">first name</label>
+                        <label htmlFor="first_name" className="required">First Name: </label>
                         <input
                             type="text"
                             name="first_name"
@@ -225,7 +225,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* <last_name */}
-                        <label htmlFor="last_name" className="required">last name</label>
+                        <label htmlFor="last_name" className="required">Last Name: </label>
                         <input
                             type="text"
                             name="last_name"
@@ -237,7 +237,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* profession */}
-                        <label htmlFor="profession" className="required">profession</label>
+                        <label htmlFor="profession" className="required">Profession: </label>
                         <input
                             type="text"
                             name="profession"
@@ -249,7 +249,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* skills */}
-                        <label htmlFor="skills" className="required">skills</label>
+                        <label htmlFor="skills" className="required">Skills: </label>
                         <input
                             type="text"
                             name="skills"
@@ -277,7 +277,7 @@ export const Candidates = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Delete Candidate</legend>
-                        <span>Candidate Id: {formState.candidate_id}</span>
+                        <span>Candidate ID: {formState.candidate_id}</span>
                         <br />
                         <span>First Name: {formState.first_name}</span>
                         <br />

@@ -54,16 +54,17 @@ const getEmployerByID = async (req, res) => {
 // Returns status of creation of new employer in Employers
 const createEmployer = async (req, res) => {
     try {
-        console.log(req)
         const { body } = req
-        console.log(body)
         const { name } = body
-        console.log(name)
         let { location } = body
 
-        // null out location if empty string is detected
-        if (location.trim() === '') location = null
-
+        // null out location if empty string or undefined is detected
+        if (location){
+            location.trim() === '' ? null : location.trim()
+        } else{
+            location = null
+        }
+        
         const query =
             'INSERT INTO Employers (name, location) VALUES (?, ?)'
 
@@ -93,6 +94,7 @@ const updateEmployer = async (req, res) => {
     
     // Get the employer object
     const newEmployer = body
+    console.log("newEmployer Location: ", newEmployer.location)
 
     try {
         const [data] = await db.query('SELECT * FROM Employers WHERE employer_id = ?', [

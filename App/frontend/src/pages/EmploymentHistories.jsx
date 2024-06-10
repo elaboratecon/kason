@@ -149,7 +149,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         <legend className="visually-hidden">Add Employment History</legend>
 
                         {/* position */}
-                        <label htmlFor="position" className="required">position</label>
+                        <label htmlFor="position" className="required">Position: </label>
                         <input
                             type="text"
                             name="position"
@@ -161,7 +161,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* start_date */}
-                        <label htmlFor="start_date" className="required">start_date</label>
+                        <label htmlFor="start_date" className="required">Start Date: </label>
                         <input
                             type="date"
                             name="start_date"
@@ -173,7 +173,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* end_date */}
-                        <label htmlFor="end_date">end_date</label>
+                        <label htmlFor="end_date">End Date: </label>
                         <input
                             type="date"
                             name="end_date"
@@ -183,8 +183,8 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* currently_employed */}
-                        <label htmlFor="currently_employed" className="required">currently_employed</label>
-                        <p>Are you still currently employed with this Employer?</p>
+                        <label htmlFor="currently_employed" className="required">Currently Employed: </label>
+                        <p>Are you still currently employed with this employer?</p>
                         <select
                             name="currently_employed"
                             id="currently_employed"
@@ -221,8 +221,8 @@ export const EmploymentHistories = ({ apiURL }) => {
                         </select>
 
                         {/* employer_id */}
-                        <label htmlFor="employer_id" className="required">employer_id</label>
-                        <p>First, see if you can find the Employer in the list. If you can't, select "Employer Not Listed (null)" and you will be asked to enter the Employer Name manually.</p>
+                        <label htmlFor="employer_id" className="required">Employer Name: </label>
+                        <p>First, see if you can find the Employer in the list. If you can't, select "Employer Not Listed (null)" and you will be asked to enter the employer name manually.</p>
                         <select
                             name="employer_id"
                             id="employer_id"
@@ -256,8 +256,8 @@ export const EmploymentHistories = ({ apiURL }) => {
                         {/* employer_name */}
                         {formState.employer_id === null && (
                             <>
-                                <label htmlFor="employer_name" className="required">employer_name</label>
-                                <p>Please enter the Employer Name manually.</p>
+                                <label htmlFor="employer_name" className="required">Employer Name (not in DB): </label>
+                                <p>Please enter the employer name manually.</p>
                                 <input
                                     type="text"
                                     name="employer_name"
@@ -271,7 +271,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         )}
 
                         {/* candidate_id */}
-                        <label htmlFor="candidate_id" className="required">candidate_id</label>
+                        <label htmlFor="candidate_id" className="required">Candidate Full Name: </label>
                         <select
                             name="candidate_id"
                             id="candidate_id"
@@ -319,7 +319,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         <br />
 
                         {/* position */}
-                        <label htmlFor="position" className="required">position</label>
+                        <label htmlFor="position" className="required">Position: </label>
                         <input
                             type="text"
                             name="position"
@@ -331,7 +331,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* start_date */}
-                        <label htmlFor="start_date" className="required">start_date</label>
+                        <label htmlFor="start_date" className="required">Start Date: </label>
                         <input
                             type="date"
                             name="start_date"
@@ -343,7 +343,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* end_date */}
-                        <label htmlFor="end_date">end_date</label>
+                        <label htmlFor="end_date">End Date: </label>
                         <input
                             type="date"
                             name="end_date"
@@ -353,8 +353,8 @@ export const EmploymentHistories = ({ apiURL }) => {
                         />
 
                         {/* currently_employed */}
-                        <label htmlFor="currently_employed" className="required">currently_employed</label>
-                        <p>Are you still currently employed with this Employer?</p>
+                        <label htmlFor="currently_employed" className="required">Currently Employed: </label>
+                        <p>Are you still currently employed with this employer?</p>
                         <select
                             name="currently_employed"
                             id="currently_employed"
@@ -391,8 +391,8 @@ export const EmploymentHistories = ({ apiURL }) => {
                         </select>
 
                         {/* employer_id */}
-                        <label htmlFor="employer_id" className="required">employer_id</label>
-                        <p>First, see if you can find the Employer in the list. If you can't, select "Employer Not Listed (null)" and you will be asked to enter the Employer Name manually.</p>
+                        <label htmlFor="employer_id" className="required">Employer Name: </label>
+                        <p>First, see if you can find the Employer in the list. If you can't, select "Employer Not Listed (null)" and you will be asked to enter the employer name manually.</p>
                         <select
                             name="employer_id"
                             id="employer_id"
@@ -427,8 +427,8 @@ export const EmploymentHistories = ({ apiURL }) => {
                         {/* employer_name */}
                         {formState.employer_id === null && (
                             <>
-                                <label htmlFor="employer_name" className="required">employer_name</label>
-                                <p>Please enter the Employer Name manually.</p>
+                                <label htmlFor="employer_name" className="required">Employer Name (not in DB): </label>
+                                <p>Please enter the employer name manually.</p>
                                 <input
                                     type="text"
                                     name="employer_name"
@@ -443,7 +443,7 @@ export const EmploymentHistories = ({ apiURL }) => {
 
 
                         {/* candidate_id */}
-                        <label htmlFor="candidate_id" className="required">candidate_id</label>
+                        <label htmlFor="candidate_id" className="required">Candidate Full Name: </label>
                         <select
                             name="candidate_id"
                             id="candidate_id"
@@ -495,23 +495,27 @@ export const EmploymentHistories = ({ apiURL }) => {
                         <br />
 
                         {/* start_date */}
-                        <span>Start Date: {formState.start_date}</span>
+                        <span>Start Date: {formatDateForDateInput(formState?.start_date ?? '')}</span>
                         <br />
 
                         {/* end_date */}
-                        <span>End Date: {formState.end_date}</span>
+                        <span>End Date: {formatDateForDateInput(formState?.end_date ?? '')}</span>
                         <br />
 
                         {/* currently_employed */}
-                        <span>Currently Employed?: {formState.currently_employed}</span>
+                        <span>Currently Employed?: {formState.currently_employed === 1 ? 'True' : 'False'}</span>
                         <br />
 
                         {/* employer_id */}
-                        <span>Employer ID: {formState.employer_id}</span>
+                        <span>Employer Name (from DB): {formState.employer_name_from_database === null ? 'NULL' : formState.employer_name_from_database}</span>
+                        <br />
+
+                        {/* employer_id */}
+                        <span>Employer Name (if not in DB): {formState.employer_name === null ? 'NULL' : formState.employer_name}</span>
                         <br />
 
                         {/* candidate_id */}
-                        <span>candidate_full_name: {formState.candidate_full_name}</span>
+                        <span>Candidate Full Name: {formState.candidate_full_name}</span>
                         <br />
                     </fieldset>
                 </form>
