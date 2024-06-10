@@ -8,7 +8,6 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
-import PeoplePage from './pages/PeoplePage'
 import Navigation from './components/navbar/Navigation'
 
 import { Employers, Candidates, Postings, EmploymentHistories, CandidatesForPostings } from './pages/'
@@ -32,10 +31,6 @@ function App() {
                         path="/"
                         element={<HomePage />}
                     />
-                    <Route
-                        path="/people/*"
-                        element={<PeoplePage />}
-                        />
                     <Route
                         path="/employers"
                         element={<Employers apiURL={`${baseAPI}employers/`} />}

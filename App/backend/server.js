@@ -21,7 +21,6 @@ app.use(cors({ credentials: true, origin: '*' }))
 app.use(express.json())
 
 // API Routes for backend CRUD:
-app.use('/api/people', require('./routes/peopleRoutes'))
 app.use('/api/employers', require('./routes/employersRoutes'))
 app.use('/api/candidates', require('./routes/candidatesRoutes'))
 app.use('/api/postings', require('./routes/postingsRoutes'))
