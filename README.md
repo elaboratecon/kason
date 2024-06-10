@@ -1,17 +1,17 @@
-# CS 340 React Starter Guide
-
+# CS 340 Project KASON
+# Project by: Jason Conover (https://github.com/elaboratecon) and Kevin Mathew (https://github.com/kmatchu)
+# Hosted at: https://github.com/elaboratecon/kason
+# Readme nearly exactly copied from Oregon State CS340 React Starter App accessed 5/24/2024 by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte # https://github.com/osu-cs340-ecampus/react-starter-app
+ 
 <!--
 ## Upgrades for future
 * Add a comment below or remove items if needed:
-- ensure that github repo lets the public clone, but not commit/change main???
-- Re-build to ensure new ports work on dist
-- Edit frontend tables to show better data and examples on how to JOIN and do other stuff
-- Edit frontend forms to match dynamic dropdown requirement and not use typed id numbers
-- Currently a tutorial for flip servers only. Modify instructions to ensure that this works with Windows or mac operating systems also.
-- Update any UI screenshots if changes are made.
--
--
--
+- Add category table for Skills
+- Find public hosting for application and a database
+- Create customer facing application for sending requests to DBA
+- Add filter/search functionality to tables
+- Review non-functional requirements and Inclusitivity Heuristics
+- Restructure code for reusing functions defined in multiple places
 -->
 
 <!-- Dont forget to upgrade the Table of Contents prior to Commits -->
@@ -29,6 +29,12 @@
 11. [Screenshots of Build and API Served With Forever](#build-and-api-served-with-forever)
 
 ## Contributions
+
+Project by: Jason Conover (https://github.com/elaboratecon) and Kevin Mathew (https://github.com/kmatchu)
+Hosted at: https://github.com/elaboratecon/kason
+
+Readme nearly exactly copied from Oregon State CS340 React Starter App accessed 5/24/2024 by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte 
+Hosted at: https://github.com/osu-cs340-ecampus/react-starter-app
 
 This guide was developed by [Devin Daniels](https://github.com/devingdaniels) and [Zachary Maes](https://github.com/zacmaes) under the supervision of [Dr. Michael Curry](mailto:michael.curry@oregonstate.edu) and [Dr. Danielle Safonte](mailto:danielle.safonte@oregonstate.edu).
 
@@ -115,84 +121,7 @@ OSU VPN: Access to vpn services (see canvas) required for viewing links on flip.
    PORT=8500                                  # Set a port number between:[1024 < PORT < 65535]
 3. `server.js` is the entry point for the backend. No changes are needed here except perhaps updating the `console.log()` statement in the `app.listen()` to reflect the FLIP server you've connected to via SSH.
 
-4. Inside your flip server you will need to set up the `ddl.sql` file located inside `/backend/databases/` using the source command.
-   ```sh
-   # change directory to where the ddl.sql file is located
-   cd react-starter-app/App/backend/databases  # or wherever the ddl.sql is located
-
-   # normal login command (if not using shortcut)
-   mysql -u cs340_youronid -h classmysql.engr.oregonstate.edu -p cs340_youronid
-
-   # type in your 4 digit mariadb password and press 'enter' key
-   ```
-
-   flip will login to mariadb...
-   ```
-   Welcome to the MariaDB monitor.  Commands end with ; or \g.
-   Your MariaDB connection id is 1359790
-   Server version: 10.6.16-MariaDB-log MariaDB Server
-
-   Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
-
-   Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-   ```
-   Use 'show tables;' command to ensure that your database is empty, backup tables if necessary prior to moving on, drop all of your tables.
-   ```sql
-   MariaDB [cs340_maesz]> SHOW tables;
-   Empty set (0.001 sec)
-   ```
-   Now you can source the ddl.sql
-   ```sql
-   MariaDB [cs340_maesz]> source ddl.sql;
-   Query OK, 0 rows affected (0.001 sec)
-
-   Query OK, 0 rows affected, 1 warning (0.004 sec)
-
-   Query OK, 0 rows affected (0.007 sec)
-
-   Query OK, 11 rows affected (0.001 sec)
-   Records: 11  Duplicates: 0  Warnings: 0
-
-   Query OK, 0 rows affected, 1 warning (0.003 sec)
-
-   Query OK, 0 rows affected (0.005 sec)
-
-   Query OK, 4 rows affected (0.000 sec)
-   Records: 4  Duplicates: 0  Warnings: 0
-
-   Query OK, 0 rows affected, 1 warning (0.003 sec)
-
-   Query OK, 0 rows affected (0.006 sec)
-
-   Query OK, 9 rows affected (0.001 sec)
-   Records: 9  Duplicates: 0  Warnings: 0
-
-   Query OK, 0 rows affected (0.007 sec)
-
-   Query OK, 8 rows affected (0.001 sec)
-   Records: 8  Duplicates: 0  Warnings: 0
-
-   Query OK, 0 rows affected (0.000 sec)
-   ```
-   Confirm everything sourced with a `show tables;` command
-   ```sql
-   MariaDB [cs340_maesz]> show tables;
-   +-----------------------+
-   | Tables_in_cs340_maesz |
-   +-----------------------+
-   | bsg_cert              |
-   | bsg_cert_people       |
-   | bsg_people            |
-   | bsg_planets           |
-   +-----------------------+
-   4 rows in set (0.001 sec)
-   ```
-   Exit mariadb
-   ```sh
-   MariaDB [cs340_maesz]> exit
-   Bye
-   flip3 ~/react-starter-app/App/backend/database 1010$  # We are now back in the terminal
-   ```
+4. Make sure your database is populated (likely using a DDL)
 
 5. Now you must install all the node dependencies outlined in the `package.json` and `package-lock.json`. Run the following commands to do this:
    

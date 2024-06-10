@@ -1,3 +1,10 @@
+// Project by: Jason Conover (https://github.com/elaboratecon) and Kevin Mathew (https://github.com/kmatchu)
+// Hosted at: https://github.com/elaboratecon/kason
+
+// Code based on Oregon State CS340 React Starter App accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
@@ -5,10 +12,6 @@ import PeoplePage from './pages/PeoplePage'
 import Navigation from './components/navbar/Navigation'
 
 import { Employers, Candidates, Postings, EmploymentHistories, CandidatesForPostings } from './pages/'
-
-// Code Based on Starter Code accessed 5/24/2024
-// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
-// https://github.com/osu-cs340-ecampus/react-starter-app
 
 // Endpoints
 const baseAPI = import.meta.env.VITE_API_URL

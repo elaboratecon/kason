@@ -1,3 +1,6 @@
+// Project by: Jason Conover (https://github.com/elaboratecon) and Kevin Mathew (https://github.com/kmatchu)
+// Hosted at: https://github.com/elaboratecon/kason
+
 import React from 'react'
 export const LoaderOverlay = (props) => {
     const {
