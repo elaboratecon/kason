@@ -117,7 +117,6 @@ export const Postings = ({ apiURL }) => {
 
     // FOR TESTING PURPOSES ONLY
     useEffect(() => {
-        console.log(formState)
     }, [formState])
 
     return (
@@ -139,7 +138,7 @@ export const Postings = ({ apiURL }) => {
                         <legend className="visually-hidden">Add Posting</legend>
 
                         {/* <position */}
-                        <label htmlFor="position" className="required">position</label>
+                        <label htmlFor="position" className="required">Position: </label>
                         <input
                             type="text"
                             name="position"
@@ -151,7 +150,7 @@ export const Postings = ({ apiURL }) => {
                         />
 
                         {/* employer_id */}
-                        <label htmlFor="employer_id" className="required">employer_id</label>
+                        <label htmlFor="employer_id" className="required">Employer: </label>
                         <select
                             name="employer_id"
                             id="employer_id"
@@ -180,14 +179,13 @@ export const Postings = ({ apiURL }) => {
                         </select>
 
                         {/* description */}
-                        <label htmlFor="description" className="required">description</label>
+                        <label htmlFor="description">Description: </label>
                         <input
                             type="text"
                             name="description"
                             id="description"
                             value={formState?.description ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -214,7 +212,7 @@ export const Postings = ({ apiURL }) => {
                         <br />
 
                         {/* <position */}
-                        <label htmlFor="position" className="required"><b>Position</b></label>
+                        <label htmlFor="position" className="required"><b>Position: </b></label>
                         <input
                             type="text"
                             name="position"
@@ -226,7 +224,7 @@ export const Postings = ({ apiURL }) => {
                         />
 
                         {/* employer_id */}
-                        <label htmlFor="employer_id" className="required"><b>Employer</b></label>
+                        <label htmlFor="employer_id" className="required"><b>Employer: </b></label>
                         <select
                             name="employer_id"
                             id="employer_id"
@@ -255,14 +253,13 @@ export const Postings = ({ apiURL }) => {
                         </select>
 
                         {/* description */}
-                        <label htmlFor="description" className="required"><b>Description</b></label>
+                        <label htmlFor="description"><b>Description: </b></label>
                         <input
                             type="text"
                             name="description"
                             id="description"
                             value={formState?.description ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -286,9 +283,9 @@ export const Postings = ({ apiURL }) => {
                         <br />
                         <span><b>Position: </b>{formState.position}</span>
                         <br />
-                        <span><b>Description: </b>{formState?.description ?? ''}</span>
-                        <br />
                         <span><b>Employer: </b>{formState?.employer_name ?? ''}</span>
+                        <br />
+                        <span><b>Description: </b>{formState?.description ?? 'NULL'}</span>
                         <br />
                     </fieldset>
                 </form>

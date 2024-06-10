@@ -145,7 +145,7 @@ export const Candidates = ({ apiURL }) => {
                         <legend className="visually-hidden">Add Candidate</legend>
 
                         {/* <first_name */}
-                        <label htmlFor="first_name" className="required">first name</label>
+                        <label htmlFor="first_name" className="required">First Name: </label>
                         <input
                             type="text"
                             name="first_name"
@@ -157,7 +157,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* <last_name */}
-                        <label htmlFor="last_name" className="required">last name</label>
+                        <label htmlFor="last_name" className="required">Last Name: </label>
                         <input
                             type="text"
                             name="last_name"
@@ -169,7 +169,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* profession */}
-                        <label htmlFor="profession" className="required">profession</label>
+                        <label htmlFor="profession" className="required">Profession: </label>
                         <input
                             type="text"
                             name="profession"
@@ -181,14 +181,13 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* skills */}
-                        <label htmlFor="skills" className="required">skills</label>
+                        <label htmlFor="skills">Skills: </label>
                         <input
                             type="text"
                             name="skills"
                             id="skills"
                             value={formState?.skills ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -210,10 +209,10 @@ export const Candidates = ({ apiURL }) => {
                         <legend className="visually-hidden">Edit Candidate</legend>
 
                         {/* candidate_id */}
-                        <span>candidate_id: {formState.candidate_id}</span>
+                        <span>Candidate ID: {formState.candidate_id}</span>
                         <br />
                         {/* <first_name */}
-                        <label htmlFor="first_name" className="required">first name</label>
+                        <label htmlFor="first_name" className="required">First Name: </label>
                         <input
                             type="text"
                             name="first_name"
@@ -225,7 +224,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* <last_name */}
-                        <label htmlFor="last_name" className="required">last name</label>
+                        <label htmlFor="last_name" className="required">Last Name: </label>
                         <input
                             type="text"
                             name="last_name"
@@ -237,7 +236,7 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* profession */}
-                        <label htmlFor="profession" className="required">profession</label>
+                        <label htmlFor="profession" className="required">Profession: </label>
                         <input
                             type="text"
                             name="profession"
@@ -249,14 +248,13 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* skills */}
-                        <label htmlFor="skills" className="required">skills</label>
+                        <label htmlFor="skills">Skills: </label>
                         <input
                             type="text"
                             name="skills"
                             id="skills"
                             value={formState?.skills ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
 
@@ -277,7 +275,7 @@ export const Candidates = ({ apiURL }) => {
                 <form>
                     <fieldset>
                         <legend className="visually-hidden">Delete Candidate</legend>
-                        <span>Candidate Id: {formState.candidate_id}</span>
+                        <span>Candidate ID: {formState.candidate_id}</span>
                         <br />
                         <span>First Name: {formState.first_name}</span>
                         <br />
@@ -285,7 +283,8 @@ export const Candidates = ({ apiURL }) => {
                         <br />
                         <span>Profession: {formState.profession}</span>
                         <br />
-                        <span>Skills: {formState?.skills ?? ''}</span>
+                        <span>Skills: {formState?.skills ?? 'NULL'}</span>
+                        
                         <br />
                     </fieldset>
                 </form>
@@ -343,7 +342,7 @@ const TableRow = ({ data, triggerEditModalById, triggerDeleteModalById }) => {
             <td>{firstName}</td>
             <td>{lastName}</td>
             <td>{profession}</td>
-            <td>{skills}</td>
+            <td>{skills === null ? 'NULL' : skills}</td>
         </tr>
     )
 }

@@ -141,7 +141,7 @@ export const Employers = ({ apiURL }) => {
                         <legend className="visually-hidden">Add Employer</legend>
 
                         {/* <name */}
-                        <label htmlFor="name" className="required">name</label>
+                        <label htmlFor="name" className="required">Name: </label>
                         <input
                             type="text"
                             name="name"
@@ -153,14 +153,13 @@ export const Employers = ({ apiURL }) => {
                         />
 
                         {/* location */}
-                        <label htmlFor="location" className="required">location</label>
+                        <label htmlFor="location">Location: </label>
                         <input
                             type="text"
                             name="location"
                             id="location"
                             value={formState?.location ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -181,11 +180,11 @@ export const Employers = ({ apiURL }) => {
                     <fieldset>
                         <legend className="visually-hidden">Edit Employer</legend>
                         
-                        <span>employer_id: {formState.employer_id}</span>
+                        <span>Employer ID: {formState.employer_id}</span>
                         <br />
                         
                         {/* <name */}
-                        <label htmlFor="name" className="required">name</label>
+                        <label htmlFor="name" className="required">Name: </label>
                         <input
                             type="text"
                             name="name"
@@ -197,14 +196,13 @@ export const Employers = ({ apiURL }) => {
                         />
 
                         {/* location */}
-                        <label htmlFor="location" className="required">location</label>
+                        <label htmlFor="location">Location: </label>
                         <input
                             type="text"
                             name="location"
                             id="location"
                             value={formState?.location ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -225,11 +223,11 @@ export const Employers = ({ apiURL }) => {
                     <fieldset>
                         <legend className="visually-hidden">Delete Employer</legend>
 
-                        <span>employer_id: {formState.employer_id}</span>
+                        <span>Employer ID: {formState.employer_id}</span>
                         <br />
-                        <span>name: {formState.name}</span>
+                        <span>Name: {formState.name}</span>
                         <br />
-                        <span>location: {formState?.location ?? ''}</span>
+                        <span>Location: {formState?.location ?? ''}</span>
                         <br />
                     </fieldset>
                 </form>

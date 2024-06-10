@@ -132,7 +132,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                         <legend className="visually-hidden">Add CandidateForPosting</legend>
 
                         {/* posting_id */}
-                        <label htmlFor="posting_id" className="required">posting_position</label>
+                        <label htmlFor="posting_id" className="required">Posting Position: </label>
                         <select
                             name="posting_id"
                             id="posting_id"
@@ -162,7 +162,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                         </select>
 
                         {/* candidate_id */}
-                        <label htmlFor="candidate_id" className="required">candidate_full_name</label>
+                        <label htmlFor="candidate_id" className="required">Candidate Full Name</label>
                         <select
                             name="candidate_id"
                             id="candidate_id"
@@ -206,11 +206,11 @@ export const CandidatesForPostings = ({ apiURL }) => {
                         <legend className="visually-hidden">Edit CandidateForPosting</legend>
 
                         {/* candidate_for_posting_id */}
-                        <span>candidate_for_posting_id: {formState.candidate_for_posting_id}</span>
+                        <span>CandidateForPosting ID: {formState.candidate_for_posting_id}</span>
                         <br />
 
                         {/* posting_id */}
-                        <label htmlFor="posting_id" className="required">posting_position</label>
+                        <label htmlFor="posting_id" className="required">Posting Position: </label>
                         <select
                             name="posting_id"
                             id="posting_id"
@@ -240,7 +240,7 @@ export const CandidatesForPostings = ({ apiURL }) => {
                         </select>
 
                         {/* candidate_id */}
-                        <label htmlFor="candidate_id" className="required">candidate_full_name</label>
+                        <label htmlFor="candidate_id" className="required">Candidate Full Name: </label>
                         <select
                             name="candidate_id"
                             id="candidate_id"
@@ -284,16 +284,16 @@ export const CandidatesForPostings = ({ apiURL }) => {
                         <legend className="visually-hidden">Delete CandidateForPosting</legend>
 
                         {/* candidate_for_posting_id */}
-                        <span>candidate_for_posting_id: {formState.candidate_for_posting_id}</span>
+                        <span>CandidateForPosting ID: {formState.candidate_for_posting_id}</span>
                         <br />
 
                         {/* posting_id */}
-                        {/* Why does this work?? We never assigned posting_position to formState, we assigned posting_id?}
-                        <span>posting_position: {formState.posting_position}</span>
+                        {/* Why does this work?? We never assigned posting_position to formState, we assigned posting_id? */}
+                        <span>Posting Position: {formState.posting_position}</span>
                         <br />
 
                         {/* candidate_id */}
-                        <span>candidate_full_name: {formState.candidate_full_name}</span>
+                        <span>Candidate Full Name: {formState.candidate_full_name}</span>
                         <br />
                     </fieldset>
                 </form>
