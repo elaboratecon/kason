@@ -529,8 +529,8 @@ export const EmploymentHistories = ({ apiURL }) => {
                             <th className="text-center">employment_history_id</th>
                             <th>candidate_full_name</th>
                             <th>position</th>
-                            <th>employer_name_from_database</th>
-                            <th>employer_name</th>
+                            <th>employer_name <br />(from database)</th>
+                            <th>employer_name <br />(if not in database)</th>
                             <th>start_date</th>
                             <th>start_date</th>
                             <th>currently_employed</th>
