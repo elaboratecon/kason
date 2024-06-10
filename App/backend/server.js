@@ -1,10 +1,13 @@
+// Project by: Jason Conover (https://github.com/elaboratecon) and Kevin Mathew (https://github.com/kmatchu)
+// Hosted at: https://github.com/elaboratecon/kason
+
+// Code based on Oregon State CS340 React Starter App accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
-
-// Code Based on Starter Code accessed 5/24/2024
-// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
-// https://github.com/osu-cs340-ecampus/react-starter-app
 
 const app = express()
 const PORT = process.env.PORT || 8500
@@ -18,7 +21,6 @@ app.use(cors({ credentials: true, origin: '*' }))
 app.use(express.json())
 
 // API Routes for backend CRUD:
-app.use('/api/people', require('./routes/peopleRoutes'))
 app.use('/api/employers', require('./routes/employersRoutes'))
 app.use('/api/candidates', require('./routes/candidatesRoutes'))
 app.use('/api/postings', require('./routes/postingsRoutes'))

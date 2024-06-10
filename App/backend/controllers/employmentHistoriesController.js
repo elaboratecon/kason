@@ -1,13 +1,16 @@
+// Project by: Jason Conover (https://github.com/elaboratecon) and Kevin Mathew (https://github.com/kmatchu)
+// Hosted at: https://github.com/elaboratecon/kason
+
+// Code based on Oregon State CS340 React Starter App accessed 5/24/2024
+// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+// https://github.com/osu-cs340-ecampus/react-starter-app
+
 // Load db config
 const db = require('../database/config')
 // Load .env variables
 require('dotenv').config()
 // Util to deep-compare two objects
 const lodash = require('lodash')
-
-// Code Based on Starter Code accessed 5/24/2024
-// by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
-// https://github.com/osu-cs340-ecampus/react-starter-app
 
 // Returns all rows in EmploymentHistories
 const getEmploymentHistories = async (req, res) => {
