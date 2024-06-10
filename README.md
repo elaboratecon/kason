@@ -2,8 +2,21 @@
 Project by: Jason Conover (https://github.com/elaboratecon) and Kevin Mathew (https://github.com/kmatchu)
 Hosted at: https://github.com/elaboratecon/kason
 
-Readme nearly exactly copied from Oregon State CS340 React Starter App accessed 5/24/2024 by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte # https://github.com/osu-cs340-ecampus/react-starter-app
+Readme nearly exactly copied from Oregon State CS340 React Starter App accessed 5/24/2024 by Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte 
+Link: https://github.com/osu-cs340-ecampus/react-starter-app
  
+Hosted on the OSU Network currently (must be VPN'ed in to access) at:
+http://classwork.engr.oregonstate.edu:2365/employment-histories
+
+
+# Project Outline:
+KASON industries is a new tech startup creating a database supporting local job applications. Our database stores information on Employers, Postings, Candidates, and EmploymentHistories. We plan to allow Employers to post new job Postings, Candidates to create EmploymentHistories profiles and for Candidates to apply for job Postings. 
+
+Our database is designed for small-scale use, expecting much less than 50 job Postings and much less than 100 applications (CandidatesForPostings), which we expect will be our two biggest tables. We expect our database to accommodate approximately 5-10 Employers and 5-20 Candidates, and all their related EmploymentHistories, job Postings, and applications (CandidatesForPostings). We plan to only advertise our database with local companies and job seekers, and as such we do not anticipate a massive demand for use. Our project is a React based application - the database administrator will use it to manage the tables. Our database administrator will manually control data entry, and thus we avoid the risks of massive data spikes or other errors. We do not plan to charge for our services, but after we have users and reliable functionality we will reevaluate monetization to cover expansion and/or server costs.
+
+# Local Setup
+Review below for more detailed instruction on local hosting. User will need to create a .env file in the "frontend" folder and a .env in the "backend" folder. User will need to "npm install" to install the node modules folder in both. The backend .env will define database access (username, password) and port, and should be started first. The frontend .env will define the front end port and point it toward the backend, this should be started second.
+
 <!--
 ## KASON possible upgrades for future
 * Add a comment below or remove items if needed:
@@ -14,11 +27,6 @@ Readme nearly exactly copied from Oregon State CS340 React Starter App accessed 
 - Review non-functional requirements and Inclusitivity Heuristics
 - Restructure code for reusing functions defined in multiple places
 -->
-
-# Project Outline:
-KASON industries is a new tech startup planning to create a database supporting local job applications. Our database will store information on Employers, Postings, Candidates, and EmploymentHistories. We plan to allow Employers to post new job Postings, Candidates to create EmploymentHistories profiles and for Candidates to apply for job Postings. Eventually, creating an EmploymentHistory with an employer not in our database will create a new Employer object based on it.
-
-Our database will be designed for small-scale use, expecting much less than 50 job Postings and much less than 100 applications (CandidatesForPostings), which we expect will be our two biggest tables. We expect our database to accommodate approximately 5-10 Employers and 5-20 Candidates, and all their related EmploymentHistories, job Postings, and applications (CandidatesForPostings). We plan to only advertise our database with local companies and job seekers, and as such we do not anticipate a massive demand for use. Data entry requests will pass through our Database Administrator, who will track any need to upscale our capacity and prevent massive data spikes or other errors. Our database administrator will create a React based interface for their personal use in managing the tables. We do not plan to charge for our services, but after we have users and reliable functionality we will reevaluate monetization to cover expansion and/or server costs.
 
 # Readme from React Starter App below
 
