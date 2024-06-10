@@ -153,14 +153,13 @@ export const Employers = ({ apiURL }) => {
                         />
 
                         {/* location */}
-                        <label htmlFor="location" className="required">Location: </label>
+                        <label htmlFor="location">Location: </label>
                         <input
                             type="text"
                             name="location"
                             id="location"
                             value={formState?.location ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -197,14 +196,13 @@ export const Employers = ({ apiURL }) => {
                         />
 
                         {/* location */}
-                        <label htmlFor="location" className="required">Location: </label>
+                        <label htmlFor="location">Location: </label>
                         <input
                             type="text"
                             name="location"
                             id="location"
                             value={formState?.location ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>

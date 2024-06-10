@@ -181,14 +181,13 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* skills */}
-                        <label htmlFor="skills" className="required">Skills: </label>
+                        <label htmlFor="skills">Skills: </label>
                         <input
                             type="text"
                             name="skills"
                             id="skills"
                             value={formState?.skills ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -249,14 +248,13 @@ export const Candidates = ({ apiURL }) => {
                         />
 
                         {/* skills */}
-                        <label htmlFor="skills" className="required">Skills: </label>
+                        <label htmlFor="skills">Skills: </label>
                         <input
                             type="text"
                             name="skills"
                             id="skills"
                             value={formState?.skills ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
 
@@ -285,7 +283,8 @@ export const Candidates = ({ apiURL }) => {
                         <br />
                         <span>Profession: {formState.profession}</span>
                         <br />
-                        <span>Skills: {formState?.skills ?? ''}</span>
+                        <span>Skills: {formState?.skills ?? 'NULL'}</span>
+                        
                         <br />
                     </fieldset>
                 </form>
@@ -343,7 +342,7 @@ const TableRow = ({ data, triggerEditModalById, triggerDeleteModalById }) => {
             <td>{firstName}</td>
             <td>{lastName}</td>
             <td>{profession}</td>
-            <td>{skills}</td>
+            <td>{skills === null ? 'NULL' : skills}</td>
         </tr>
     )
 }

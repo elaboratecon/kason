@@ -67,8 +67,12 @@ const createPosting = async (req, res) => {
         let { description } = body
         const { employer_id } = body
 
-        // null out location if empty string is detected
-        if (description.trim() === '') description = null
+        // null out location if empty string or undefined is detected
+        if (description){
+            description.trim() === '' ? null : description.trim()
+        } else{
+            description = null
+        }
 
         const query =
             'INSERT INTO Postings (position, description, employer_id) VALUES (?, ?, ?)'

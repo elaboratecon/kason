@@ -127,7 +127,6 @@ export const EmploymentHistories = ({ apiURL }) => {
 
     // FOR TESTING PURPOSES ONLY
     useEffect(() => {
-        console.log(formState)
     }, [formState])
 
     return (
@@ -256,7 +255,7 @@ export const EmploymentHistories = ({ apiURL }) => {
                         {/* employer_name */}
                         {formState.employer_id === null && (
                             <>
-                                <label htmlFor="employer_name" className="required">Employer Name (not in DB): </label>
+                                <label htmlFor="employer_name">Employer Name (not in DB): </label>
                                 <p>Please enter the employer name manually.</p>
                                 <input
                                     type="text"
@@ -264,7 +263,6 @@ export const EmploymentHistories = ({ apiURL }) => {
                                     id="employer_name"
                                     value={formState?.employer_name ?? ''}
                                     onChange={(e) => updateField(e, setFormState)}
-                                    aria-required="true"
                                     required
                                 />
                             </>

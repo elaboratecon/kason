@@ -117,7 +117,6 @@ export const Postings = ({ apiURL }) => {
 
     // FOR TESTING PURPOSES ONLY
     useEffect(() => {
-        console.log(formState)
     }, [formState])
 
     return (
@@ -180,14 +179,13 @@ export const Postings = ({ apiURL }) => {
                         </select>
 
                         {/* description */}
-                        <label htmlFor="description" className="required">Description: </label>
+                        <label htmlFor="description">Description: </label>
                         <input
                             type="text"
                             name="description"
                             id="description"
                             value={formState?.description ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -255,14 +253,13 @@ export const Postings = ({ apiURL }) => {
                         </select>
 
                         {/* description */}
-                        <label htmlFor="description" className="required"><b>Description: </b></label>
+                        <label htmlFor="description"><b>Description: </b></label>
                         <input
                             type="text"
                             name="description"
                             id="description"
                             value={formState?.description ?? ''}
                             onChange={(e) => updateField(e, setFormState)}
-                            aria-required="true"
                             required
                         />
                     </fieldset>
@@ -288,7 +285,7 @@ export const Postings = ({ apiURL }) => {
                         <br />
                         <span><b>Employer: </b>{formState?.employer_name ?? ''}</span>
                         <br />
-                        <span><b>Description: </b>{formState?.description ?? ''}</span>
+                        <span><b>Description: </b>{formState?.description ?? 'NULL'}</span>
                         <br />
                     </fieldset>
                 </form>
