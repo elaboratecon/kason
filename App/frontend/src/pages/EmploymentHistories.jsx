@@ -125,10 +125,6 @@ export const EmploymentHistories = ({ apiURL }) => {
         fetchEmploymentHistories()
     }, [])
 
-    // FOR TESTING PURPOSES ONLY
-    useEffect(() => {
-    }, [formState])
-
     return (
         <>
             <LoaderOverlay enable={isWriting} />

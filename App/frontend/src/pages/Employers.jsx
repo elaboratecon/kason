@@ -114,13 +114,9 @@ export const Employers = ({ apiURL }) => {
         setIsOpenDeleteModal(!isOpenDeleteModal)
     }
 
-    // useEffects
     useEffect(() => {
         fetchEmployers()
     }, [])
-
-    useEffect(() => {
-    }, [employers])
     
     return (
         <>

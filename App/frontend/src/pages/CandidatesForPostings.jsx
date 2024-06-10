@@ -108,11 +108,6 @@ export const CandidatesForPostings = ({ apiURL }) => {
         fetchCandidatesForPostings()
     }, [])
 
-    // FOR TESTING PURPOSES ONLY
-    // useEffect(() => {
-    //     console.log(formState)
-    // }, [formState])
-
     return (
         <>
             <LoaderOverlay enable={isWriting} />
