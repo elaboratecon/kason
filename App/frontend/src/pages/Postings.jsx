@@ -110,14 +110,9 @@ export const Postings = ({ apiURL }) => {
         setIsOpenDeleteModal(!isOpenDeleteModal)
     }
 
-    // on page load
     useEffect(() => {
         fetchPostings()
     }, [])
-
-    // FOR TESTING PURPOSES ONLY
-    useEffect(() => {
-    }, [formState])
 
     return (
         <>
